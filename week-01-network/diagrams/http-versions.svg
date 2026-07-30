@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 520" font-family="-apple-system,Segoe UI,Roboto,sans-serif">
+  <style>
+    .title{font-size:22px;font-weight:800;fill:#131a24}
+    .sub{font-size:13px;fill:#64748b}
+    .ver{font-size:16px;font-weight:800}
+    .note{font-size:11.5px;fill:#3c4859}
+    .tag{font-size:11px;font-weight:700}
+    .axis{font-size:11px;fill:#94a3b8}
+    .req{font-size:10px;font-weight:700;fill:#fff}
+  </style>
+
+  <text x="30" y="36" class="title">HTTP versions + Head-of-Line blocking</text>
+  <text x="30" y="58" class="sub">Ek hi 6 requests, teen tareeke. → = time. Chhota box = ek request.</text>
+
+  <!-- time arrow reference -->
+  <text x="150" y="92" class="axis">time →</text>
+
+  <!-- ================= HTTP/1.1 ================= -->
+  <text x="30" y="140" class="ver" fill="#c2410c">HTTP/1.1</text>
+  <text x="30" y="158" class="tag" fill="#c2410c">6 connections</text>
+  <!-- 3 connection lanes, each serial -->
+  <g>
+    <line x1="150" y1="120" x2="770" y2="120" stroke="#e2e8f0"/>
+    <rect x="150" y="110" width="90" height="20" rx="4" fill="#c2410c"/><text x="195" y="124" text-anchor="middle" class="req">R1</text>
+    <rect x="245" y="110" width="90" height="20" rx="4" fill="#e08a5a"/><text x="290" y="124" text-anchor="middle" class="req">R4</text>
+
+    <line x1="150" y1="150" x2="770" y2="150" stroke="#e2e8f0"/>
+    <rect x="150" y="140" width="110" height="20" rx="4" fill="#c2410c"/><text x="205" y="154" text-anchor="middle" class="req">R2</text>
+    <rect x="265" y="140" width="90" height="20" rx="4" fill="#e08a5a"/><text x="310" y="154" text-anchor="middle" class="req">R5</text>
+
+    <line x1="150" y1="180" x2="770" y2="180" stroke="#e2e8f0"/>
+    <rect x="150" y="170" width="80" height="20" rx="4" fill="#c2410c"/><text x="190" y="184" text-anchor="middle" class="req">R3</text>
+    <rect x="235" y="170" width="100" height="20" rx="4" fill="#e08a5a"/><text x="285" y="184" text-anchor="middle" class="req">R6</text>
+  </g>
+  <text x="380" y="152" class="note">Ek connection pe ek time ek request — R4 ko R1 khatam</text>
+  <text x="380" y="168" class="note">hone ka wait. Browser 6 connection khol ke jugaad karta hai.</text>
+  <text x="380" y="186" class="note" fill="#c2410c" font-weight="700">⚠️ Per-connection head-of-line blocking</text>
+
+  <!-- ================= HTTP/2 ================= -->
+  <text x="30" y="270" class="ver" fill="#8b5cf6">HTTP/2</text>
+  <text x="30" y="288" class="tag" fill="#8b5cf6">1 connection</text>
+  <g>
+    <line x1="150" y1="250" x2="770" y2="250" stroke="#e2e8f0"/>
+    <!-- multiplexed: all 6 interleaved in parallel on one line -->
+    <rect x="150" y="240" width="100" height="20" rx="4" fill="#8b5cf6"/><text x="200" y="254" text-anchor="middle" class="req">R1</text>
+    <rect x="150" y="262" width="100" height="16" rx="4" fill="#a78bda"/><text x="200" y="275" text-anchor="middle" class="req">R2</text>
+    <rect x="150" y="280" width="100" height="16" rx="4" fill="#b9a6e6"/><text x="200" y="293" text-anchor="middle" class="req">R3</text>
+    <rect x="255" y="240" width="90" height="20" rx="4" fill="#8b5cf6"/><text x="300" y="254" text-anchor="middle" class="req">R4</text>
+    <rect x="255" y="262" width="90" height="16" rx="4" fill="#a78bda"/><text x="300" y="275" text-anchor="middle" class="req">R5</text>
+    <rect x="255" y="280" width="90" height="16" rx="4" fill="#b9a6e6"/><text x="300" y="293" text-anchor="middle" class="req">R6</text>
+  </g>
+  <text x="380" y="262" class="note">Ek connection pe saari requests PARALLEL (multiplexing).</text>
+  <text x="380" y="278" class="note">HTTP-level blocking gaya. Par TCP ek stream hai — ek</text>
+  <text x="380" y="294" class="note" fill="#8b5cf6" font-weight="700">⚠️ packet lost = poori connection ruki (TCP-level HOL)</text>
+
+  <!-- ================= HTTP/3 ================= -->
+  <text x="30" y="390" class="ver" fill="#0e7c86">HTTP/3</text>
+  <text x="30" y="408" class="tag" fill="#0e7c86">QUIC / UDP</text>
+  <g>
+    <line x1="150" y1="370" x2="770" y2="370" stroke="#e2e8f0"/>
+    <rect x="150" y="360" width="100" height="20" rx="4" fill="#0e7c86"/><text x="200" y="374" text-anchor="middle" class="req">R1</text>
+    <rect x="150" y="382" width="100" height="16" rx="4" fill="#2aa2ac"/><text x="200" y="395" text-anchor="middle" class="req">R2</text>
+    <rect x="150" y="400" width="100" height="16" rx="4" fill="#5bbcc4"/><text x="200" y="413" text-anchor="middle" class="req">R3</text>
+    <!-- R2 has a lost packet (gap) but R1/R3 continue -->
+    <rect x="255" y="360" width="90" height="20" rx="4" fill="#0e7c86"/><text x="300" y="374" text-anchor="middle" class="req">R4</text>
+    <rect x="255" y="382" width="40" height="16" rx="4" fill="#f59e0b"/><text x="275" y="395" text-anchor="middle" class="req">✕</text>
+    <rect x="255" y="400" width="90" height="16" rx="4" fill="#5bbcc4"/><text x="300" y="413" text-anchor="middle" class="req">R6</text>
+  </g>
+  <text x="380" y="382" class="note">Har stream INDEPENDENT (UDP pe). R2 ka packet lost hua</text>
+  <text x="380" y="398" class="note">to bhi R1/R3/R4/R6 chalte rehte. Setup bhi tez (1-RTT).</text>
+  <text x="380" y="414" class="note" fill="#0e7c86" font-weight="700">✅ Dono level ka head-of-line blocking gaya</text>
+
+  <!-- takeaway -->
+  <rect x="30" y="450" width="880" height="48" rx="10" fill="#fff6e8" stroke="#d97706"/>
+  <text x="46" y="472" font-size="12.5" font-weight="700" fill="#a85c04">Takeaway:</text>
+  <text x="112" y="472" font-size="12.5" fill="#3c4859">H1.1 = kai connections + queue · H2 = 1 connection, parallel streams · H3 = UDP, truly independent streams.</text>
+  <text x="46" y="490" font-size="12.5" fill="#3c4859">Har step ka goal ek hi: kam round trips + kam blocking. Yehi Build 3 mein 30 images se khud measure karoge.</text>
+</svg>

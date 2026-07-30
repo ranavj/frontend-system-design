@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 470" font-family="-apple-system,Segoe UI,Roboto,sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#64748b"/>
+    </marker>
+    <style>
+      .title{font-size:22px;font-weight:800;fill:#131a24}
+      .sub{font-size:13px;fill:#64748b}
+      .stage{font-size:14px;font-weight:700;fill:#fff}
+      .num{font-size:13px;font-weight:800;fill:#fff}
+      .lbl{font-size:12.5px;font-weight:700;fill:#131a24}
+      .desc{font-size:11.5px;fill:#3c4859}
+      .rt{font-size:11px;font-weight:700;fill:#a85c04}
+      .cap{font-size:12px;fill:#64748b}
+      .node{font-size:14px;font-weight:800;fill:#fff}
+    </style>
+  </defs>
+
+  <text x="30" y="38" class="title">Ek request ka safar — Browser → Server → wapas</text>
+  <text x="30" y="60" class="sub">Har fetch() andar se ye 6 stages. Har stage apna time leta hai (DevTools → Network → hover).</text>
+
+  <!-- endpoints -->
+  <rect x="30" y="95" width="120" height="60" rx="12" fill="#2f6fd6"/>
+  <text x="90" y="122" text-anchor="middle" class="node">BROWSER</text>
+  <text x="90" y="140" text-anchor="middle" font-size="11" fill="#dbe7fb">(aap)</text>
+
+  <rect x="790" y="95" width="120" height="60" rx="12" fill="#0f9d78"/>
+  <text x="850" y="122" text-anchor="middle" class="node">SERVER</text>
+  <text x="850" y="140" text-anchor="middle" font-size="11" fill="#d4f3ea">(restaurant)</text>
+
+  <!-- journey line -->
+  <line x1="150" y1="125" x2="790" y2="125" stroke="#cbd5e1" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- stage bulbs on the line -->
+  <g>
+    <circle cx="235" cy="125" r="18" fill="#2f6fd6"/><text x="235" y="130" text-anchor="middle" class="num">1</text>
+    <circle cx="350" cy="125" r="18" fill="#8b5cf6"/><text x="350" y="130" text-anchor="middle" class="num">2</text>
+    <circle cx="465" cy="125" r="18" fill="#d6336c"/><text x="465" y="130" text-anchor="middle" class="num">3</text>
+    <circle cx="580" cy="125" r="18" fill="#c2410c"/><text x="580" y="130" text-anchor="middle" class="num">4</text>
+    <circle cx="670" cy="125" r="18" fill="#d97706"/><text x="670" y="130" text-anchor="middle" class="num">5</text>
+    <circle cx="755" cy="125" r="18" fill="#0e7c86"/><text x="755" y="130" text-anchor="middle" class="num">6</text>
+  </g>
+
+  <!-- cards -->
+  <g>
+    <rect x="30" y="200" width="200" height="98" rx="10" fill="#eef4ff" stroke="#2f6fd6"/>
+    <text x="45" y="224" class="lbl">1 · DNS lookup</text>
+    <text x="45" y="245" class="desc">Naam → IP address.</text>
+    <text x="45" y="262" class="desc">"Domino's ka address?"</text>
+    <text x="45" y="286" class="rt">phonebook</text>
+
+    <rect x="245" y="200" width="200" height="98" rx="10" fill="#f4efff" stroke="#8b5cf6"/>
+    <text x="260" y="224" class="lbl">2 · TCP connect</text>
+    <text x="260" y="245" class="desc">3-way handshake.</text>
+    <text x="260" y="262" class="desc">"Hello–hello–haan."</text>
+    <text x="260" y="286" class="rt">1 round trip</text>
+
+    <rect x="460" y="200" width="200" height="98" rx="10" fill="#fdeef4" stroke="#d6336c"/>
+    <text x="475" y="224" class="lbl">3 · TLS handshake</text>
+    <text x="475" y="245" class="desc">Secret code (https).</text>
+    <text x="475" y="262" class="desc">Certificate + encrypt.</text>
+    <text x="475" y="286" class="rt">1–2 round trips</text>
+
+    <rect x="675" y="200" width="235" height="98" rx="10" fill="#fef1e6" stroke="#c2410c"/>
+    <text x="690" y="224" class="lbl">4 · Request sent</text>
+    <text x="690" y="245" class="desc">Actual order jaata hai.</text>
+    <text x="690" y="262" class="desc">GET /watch HTTP/2</text>
+    <text x="690" y="286" class="rt">chhota + fast</text>
+  </g>
+
+  <g>
+    <rect x="245" y="330" width="415" height="105" rx="10" fill="#fff6e8" stroke="#d97706" stroke-width="2"/>
+    <text x="262" y="356" class="lbl">5 · TTFB — Time To First Byte  ⭐</text>
+    <text x="262" y="378" class="desc">Order chala gaya, ab SERVER soch raha hai (DB query, HTML banao).</text>
+    <text x="262" y="396" class="desc">Pehla byte wapas aaya = TTFB. Kitchen mein pizza ban raha tha.</text>
+    <text x="262" y="422" class="rt">SLOW ho to problem backend mein — aapke code mein nahi. ← interview gold</text>
+
+    <rect x="675" y="330" width="235" height="105" rx="10" fill="#e9f9f4" stroke="#0e7c86"/>
+    <text x="690" y="356" class="lbl">6 · Content download</text>
+    <text x="690" y="378" class="desc">Body ke chunks aate</text>
+    <text x="690" y="396" class="desc">rehte hain (data/end).</text>
+    <text x="690" y="420" class="rt">bada payload = slow</text>
+  </g>
+</svg>
