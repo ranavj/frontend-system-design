@@ -1,0 +1,21 @@
+# deps
+node_modules/
+.pnpm-store/
+
+# python (per-week FastAPI mini-servers)
+venv/
+__pycache__/
+*.pyc
+.env
+
+# builds
+dist/
+build/
+.vite/
+*.tsbuildinfo
+
+# os / editor
+.DS_Store
+.idea/
+.vscode/
+*.log

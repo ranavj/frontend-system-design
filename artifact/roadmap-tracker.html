@@ -1,0 +1,698 @@
+<!doctype html><html><head><!-- frame-runtime --><script>window.__FRAME_PREAMBLE={"capabilities":{"downloads":"downloads.BABDwU1K.js","mcp":"mcp.hoz5jxDa.js","permissions":"permissions.ByA9Fd8x.js","self":"self.D3u1zjZe.js","user":"user.Cp1-RnjB.js"},"transforms":"_transforms.DYk1Ltlh.js","comments":"_comments.DiwQajF_.js","translate":"_translate.C5leZL2A.js"}</script><script>(function(){"use strict";const Ee="modulepreload",we=function(e){return"/"+e},Se={},ee=function(t,n,l){let i=Promise.resolve();function s(f){const c=new Event("vite:preloadError",{cancelable:!0});if(c.payload=f,window.dispatchEvent(c),!c.defaultPrevented)throw f}return i.then(f=>{for(const c of f||[])c.status==="rejected"&&s(c.reason);return t().catch(s)})},te=["light","dark","system"];function ne(e){if(e===null||typeof e!="object")return!1;const t=e.__frame_init;return t!==null&&typeof t=="object"}function W(e){return e!==null&&typeof e=="object"&&e.__frame_size_poke===!0}function re(e){if(e===null||typeof e!="object")return!1;const t=e.__frame_theme;if(t===null||typeof t!="object")return!1;const n=t.theme;return typeof n=="string"&&te.includes(n)}function se(e){try{typeof reportError=="function"?reportError(e):setTimeout(()=>{throw e},0)}catch{}}const oe=Object.freeze(Object.assign(Object.create(null),{user:Object.freeze(Object.assign(Object.create(null),{id:null,isOwner:!1,canEdit:!1,name:null,avatarUrl:null,email:null}))}));function Y(e){if(window===top||e.type==="auxclick"&&e.button!==1)return;const t=e.composedPath?e.composedPath():[e.target];let n=null;for(let f=0;f<t.length;f++){const c=t[f];if(c&&c.matches&&c.matches("a[href],area[href]")){n=c;break}}if(!n&&e.target&&e.target.closest&&(n=e.target.closest("a[href],area[href]")),!n)return;const l=n.getAttribute("href");if(!l)return;let i,s;try{i=new URL(l,document.baseURI),s=new URL(document.baseURI).origin}catch{return}(i.protocol==="http:"||i.protocol==="https:")&&i.origin!==s&&(e.preventDefault(),parent.postMessage({__frame_nav:!0,url:i.href},"*"))}const K={};function D(e){if(window===top)return;const t=Date.now();t-(K[e]||0)<500||(K[e]=t,parent.postMessage({__frame_engaged:!0,kind:e},"*"))}const ie=2e3,x=["wheel","touchstart","touchmove","keydown","pointerdown"];let J=0;function ae(e){e.isTrusted&&(J=Date.now())}function ce(){addEventListener("click",Y,!0),addEventListener("auxclick",Y,!0)}function le(){for(let e=0;e<x.length;e++)addEventListener(x[e],ae,{capture:!0,passive:!0});addEventListener("scroll",e=>{e.isTrusted&&Date.now()-J<ie&&D("scroll")},{capture:!0,passive:!0}),addEventListener("pointermove",e=>{e.isTrusted&&D("pointer")},{capture:!0,passive:!0}),addEventListener("click",e=>{e.isTrusted&&D("click")},{capture:!0,passive:!0})}const I="__frame_scroll",ue=150,fe=310,de=160,me=3e4;function pe(){let e=0,t=!1,n=!1,l=!1,i=0;const s=a=>{try{sessionStorage.setItem(I,JSON.stringify({y:a}))}catch{}},f=()=>{if(t){t=!1;return}n=!0,clearTimeout(e),e=setTimeout(()=>s(scrollY),ue)};try{addEventListener("scroll",f,{passive:!0}),addEventListener("pagehide",()=>{clearTimeout(e),s(scrollY)})}catch{}const c=()=>{let a;try{a=sessionStorage.getItem(I)}catch{return null}if(a===null)return null;let _;try{_=JSON.parse(a)}catch{_=null}const m=_?.y;if(!(typeof m=="number"&&Number.isFinite(m)&&m>=0)){try{sessionStorage.removeItem(I)}catch{}return null}return m};let g=!1;const p=a=>{try{const _=scrollY;scrollTo({top:a,left:0,behavior:"instant"}),i=a,l=!0,s(a);const m=scrollY;m!==_&&(t=!0),m!==a&&!g&&(g=!0,addEventListener("load",()=>{try{if(scrollY===m){const y=c();p(y!==null?y:i)}}catch{}},{once:!0}))}catch{}},o=()=>{try{return!!location.hash}catch{return!0}};let u=!1;const d=()=>{try{if(u||innerWidth>fe||innerHeight>de)return;u=!0;const a=Date.now(),_=()=>{try{removeEventListener("resize",_)}catch{}if(Date.now()-a>me||n||o())return;const m=c();p(m!==null?m:i)};addEventListener("resize",_)}catch{}};let h=!1,b=!1;return{restore(){if(h||(h=!0,o()))return;const a=c();a!==null&&(p(a),d())},promoted(){if(b||(b=!0,o()))return;const a=c();a!==null?(p(a),d()):l&&p(i)}}}function he(e,t,n){const l=[...t.values()].filter(i=>i.targets.some(s=>s.startsWith(e+".")));return{wrap(i,s){const f=`${e}.${i}`,c=l.filter(g=>g.targets.includes(f));return c.length===0?(...g)=>{try{return s(...g)}catch(p){return Promise.reject(p)}}:(...g)=>{let p=g;for(const u of c){const d=u.module.parameters;if(d)try{p=d(p)}catch{return Promise.reject({code:"transform_error",id:u.id,scope:e,message:"parameters transform failed"})}}let o;try{o=s(...p)}catch(u){o=Promise.reject(u)}return o.then(u=>{for(let d=c.length-1;d>=0;d--){const h=c[d],b=h.module.returns;if(b)try{u=b(u)}catch{return n({id:h.id,scope:e,leg:"returns"}),u}}return u},u=>{for(let d=c.length-1;d>=0;d--){const h=c[d],b=h.module.throws;if(b)try{u=b(u)}catch{return n({id:h.id,scope:e,leg:"throws"}),Promise.reject(u)}}return Promise.reject(u)})}}}}function ge(e,t,n,l=()=>{}){const i=new Set(e.changes??[]),s=new Map;for(const f of i){const c=t[f];c&&s.set(f,c)}return{contract:e.contract,changes:i,flags:new Set(e.flags??[]),capabilities:e.capabilities??{},capBudgets:e.capBudgets??{},transforms:s,shellOrigin:n.shellOrigin,mount:n.mount,pipe:f=>he(f,s,l)}}(function(){const e=Object.defineProperty,t=globalThis,n=["RTCPeerConnection","webkitRTCPeerConnection","RTCDataChannel","RTCIceCandidate","RTCSessionDescription","RTCRtpSender","RTCRtpReceiver"];let l=0;for(let i=0;i<n.length;i++){const s=n[i];try{e(t,s,{value:void 0,writable:!1,configurable:!1})}catch{try{delete t[s]}catch{}try{e(t,s,{value:void 0,writable:!1,configurable:!0})}catch{}}typeof t[s]=="function"&&l++}if(l&&window!==top)try{parent.postMessage({__frame_rtc_lockdown_failed:l},"*")}catch{}})();const _e=1e4,ye=Object.freeze([...window.__FRAME_PREAMBLE?.origins??["https://claude.ai","https://preview.claude.ai"]]);function G(e){for(const t of ye)if(t.endsWith(":*"))try{const n=new URL(e);if(`${n.protocol}//${n.hostname}:*`===t)return!0}catch{}else if(e===t)return!0;return!1}const R=Object.freeze({...window.__FRAME_PREAMBLE?.capabilities}),U=window.__FRAME_PREAMBLE?.transforms,z=window.__FRAME_PREAMBLE?.comments,$=window.__FRAME_PREAMBLE?.translate,T=/^[\w.-]+\.js$/,be=/^[a-z][a-z0-9_-]{0,63}$/;let V=null,j=null;function q(e,t,n){try{Object.defineProperty(e,t,{value:n,writable:!1,configurable:!1,enumerable:!0})}catch{try{Object.defineProperty(e,t,{value:n,writable:!1,configurable:!0,enumerable:!0})}catch{}}}let B=!1;function X(e){const t=document.documentElement;e==="light"||e==="dark"?(t.dataset.theme=e,t.style.colorScheme=e,B=!0):B&&(delete t.dataset.theme,t.style.colorScheme="",B=!1)}const A=Object.assign(Object.create(null),{mcp:Object.assign(Object.create(null),{watchTool:{handlerArg:3}})}),M=new Map;function Q(e,t){const n=M.get(e);if(!n)return;const l=Object.assign(Object.create(null),t);Object.assign(n.impl,l),n.impl.__settled=()=>Promise.reject({code:"capability_removed",message:`${e}: method not in this runtime`});const i=n.queue;n.queue=[];for(const s of i){const f=l[s.method];if(f)if(A[e]?.[s.method])try{s.resolve(f(...s.args))}catch{k(s,A[e][s.method].handlerArg,{code:"transform_error",message:`${e}.${s.method} rejected its arguments`})}else f(...s.args).then(s.resolve,s.reject);else{const c={code:"capability_removed",message:`${e}.${s.method} is not in this runtime`},g=A[e]?.[s.method];if(g){k(s,g.handlerArg,c);continue}s.reject(c)}}}function ve(e,t){const n=M.get(e);if(!n)return;n.impl.__settled=()=>Promise.reject(t);const l=n.queue;n.queue=[];for(const i of l){const s=A[e]?.[i.method];if(s){k(i,s.handlerArg,t);continue}i.reject(t)}}function N(e,t){const n=oe[e];if(!n){ve(e,t);return}Q(e,Object.fromEntries(Object.entries(n).map(([l,i])=>[l,()=>Promise.resolve(i)])))}function k(e,t,n){if(e.syncState?.dead)return;const l=e.args[t];typeof l=="function"&&queueMicrotask(()=>{if(!e.syncState?.dead)try{l({type:"error",error:n})}catch(i){se(i)}})}const F=Object.getOwnPropertyDescriptor(window,"claude");if(window!==top&&!(F&&F.writable===!1)){ce(),le();let e=null;try{e=pe()}catch{}const t=F?.value??{};q(window,"claude",t);const n=o=>{const u={impl:Object.create(null),queue:[]};M.set(o,u);const d=u.impl,h=new Proxy(d,{get:(b,a)=>{if(typeof a!="string"||a==="then"||a==="toJSON"||a==="valueOf")return;if(a==="toString")return Object.prototype.toString;const _=A[o]?.[a];return _?(...m)=>{if(typeof m[_.handlerArg]!="function")throw new TypeError(`${o}.${a} requires a handler function`);const y=d[a];if(y)return y(...m);if(d.__settled){const v={dead:!1},P={args:[...m],syncState:v};return d.__settled().catch(C=>k(P,_.handlerArg,C)),()=>{v.dead=!0}}let E=null;const S={dead:!1};return u.queue.push({method:a,args:m,resolve:v=>{E=typeof v=="function"?v:null,S.dead&&E?.()},reject:()=>{},syncState:S}),()=>{S.dead=!0,E?.()}}:(...m)=>{const y=d[a]??d.__settled;return y?y(...m):new Promise((E,S)=>{u.queue.push({method:a,args:m,resolve:E,reject:S})})}},set:()=>!1});q(t,o,h)};for(const o of Object.keys(R)){if(t[o]!==void 0){q(t,o,t[o]);continue}n(o)}let l=null,i=null,s=0;const f=o=>{o.source!==parent||!G(o.origin)||ne(o.data)&&(l=o.data.__frame_init,j=o.origin,removeEventListener("message",f),clearTimeout(s),i?.())};addEventListener("message",f),parent.postMessage({__frame_connect:!0},"*");const c=new Promise(o=>{i=o,s=setTimeout(()=>{removeEventListener("message",f),o()},_e)}),g=document.readyState==="loading"?new Promise(o=>document.addEventListener("DOMContentLoaded",()=>o(),{once:!0})):Promise.resolve();g.then(()=>{try{e?.restore()}catch{}});const p=o=>{if(!(o.source!==parent||!G(o.origin))&&W(o.data)){removeEventListener("message",p);try{e?.promoted()}catch{}}};addEventListener("message",p),c.then(async()=>{if(!l||!j){for(const r of M.keys())N(r,{code:"not_granted",message:"frame initialization did not arrive - capability unavailable"});return}X(l.theme);const o=j;let u=!1,d=!1;addEventListener("message",r=>{if(r.source!==parent||r.origin!==o)return;re(r.data)&&X(r.data.__frame_theme.theme);const w=r.data?.__fc_mode;w&&typeof w=="object"&&!u&&z&&T.test(z)&&(u=!0,h(z).then(H=>H.install?.(o,w.on===!0)).catch(()=>{}));const O=r.data?.__ft_cmd;O&&typeof O=="object"&&!d&&$&&T.test($)&&(d=!0,h($).then(H=>H.install?.(o,O)).catch(()=>{}))});const h=r=>ee(()=>import("/_runtime/"+r),void 0),b=Object.keys(l.capabilities??{});for(const r of b)Object.hasOwn(R,r)||be.test(r)&&t[r]===void 0&&(n(r),N(r,{code:"capability_disabled",message:"capability not in this runtime generation"}));const a=b.filter(r=>Object.hasOwn(R,r)).map(r=>[r,R[r]]).filter(r=>typeof r[1]=="string"&&T.test(r[1])),[_,...m]=await Promise.allSettled([U&&T.test(U)?h(U):Promise.resolve({}),...a.map(([,r])=>h(r))]),y=j;V=ge(l,_.status==="fulfilled"&&_.value?.TRANSFORMS||{},{shellOrigin:y,mount:Q},r=>parent.postMessage({__frame_cap_telemetry:r},y));const E=r=>parent.postMessage({__frame_cap_telemetry:{kind:"cap-load-error",cap:r}},y),S=V;m.forEach((r,w)=>{const O=a[w][0];if(r.status!=="fulfilled"){E(O);return}try{r.value?.install?.(S)}catch{E(O)}});for(const[r,w]of M)if(!(w.queue.length===0&&Object.keys(w.impl).length>0)){if(b.includes(r)){N(r,{code:"capability_disabled",message:"capability not available in this session"});continue}N(r,{code:"not_granted",message:"capability not available in this session"})}await g,parent.postMessage({__frame_ready:!0},j);let v=-1,P=0;const C=()=>{P=0;const r=Math.max(document.documentElement.scrollHeight,document.body?document.body.scrollHeight:0);r!==v&&(v=r,parent.postMessage({__frame_size:!0,h:r},y))},L=()=>{P||(P=setTimeout(C,200))},Z=new ResizeObserver(L);Z.observe(document.documentElement),document.body&&Z.observe(document.body),document.addEventListener("load",L,!0),document.fonts?.ready.then(L,()=>{}),addEventListener("beforeprint",()=>{v=-1,C()}),L(),addEventListener("message",r=>{if(!(r.source!==parent||r.origin!==y)&&W(r.data)){try{e?.promoted()}catch{}v=-1,L()}})})}})();</script><!-- /frame-runtime --><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<title>Frontend System Design — 12-Week Build-First Roadmap</title>
+<style>
+  :root {
+    --paper: #eef1f5;
+    --panel: #ffffff;
+    --panel-2: #f7f9fc;
+    --ink: #131a24;
+    --ink-2: #3c4859;
+    --ink-3: #64748b;
+    --line: #d3dae4;
+    --line-2: #e3e8f0;
+    --grid: rgba(20, 40, 70, 0.05);
+    --grid-strong: rgba(20, 40, 70, 0.08);
+    --accent: #d97706;
+    --accent-soft: #fef0dc;
+    --accent-ink: #a85c04;
+    --p1: #2f6fd6;
+    --p2: #8b5cf6;
+    --p3: #0f9d78;
+    --p4: #c2410c;
+    --p5: #d6336c;
+    --p6: #0e7c86;
+    --shadow: 0 1px 2px rgba(20,40,70,.06), 0 8px 24px rgba(20,40,70,.06);
+    --mono: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, "Cascadia Mono", "Roboto Mono", Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0b1119;
+      --panel: #121a25;
+      --panel-2: #0f1620;
+      --ink: #e8eef6;
+      --ink-2: #b3c0d1;
+      --ink-3: #7d8ea0;
+      --line: #26313f;
+      --line-2: #1c2531;
+      --grid: rgba(120, 160, 210, 0.055);
+      --grid-strong: rgba(120, 160, 210, 0.09);
+      --accent: #f5a742;
+      --accent-soft: #2a2113;
+      --accent-ink: #f7b862;
+      --p1: #5a9bff;
+      --p2: #b18cff;
+      --p3: #33c99a;
+      --p4: #ff8a4c;
+      --p5: #ff6b9d;
+      --p6: #3bc4d0;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"] {
+    --paper:#eef1f5;--panel:#fff;--panel-2:#f7f9fc;--ink:#131a24;--ink-2:#3c4859;--ink-3:#64748b;
+    --line:#d3dae4;--line-2:#e3e8f0;--grid:rgba(20,40,70,.05);--grid-strong:rgba(20,40,70,.08);
+    --accent:#d97706;--accent-soft:#fef0dc;--accent-ink:#a85c04;
+    --p1:#2f6fd6;--p2:#8b5cf6;--p3:#0f9d78;--p4:#c2410c;--p5:#d6336c;--p6:#0e7c86;
+    --shadow:0 1px 2px rgba(20,40,70,.06),0 8px 24px rgba(20,40,70,.06);
+  }
+  :root[data-theme="dark"] {
+    --paper:#0b1119;--panel:#121a25;--panel-2:#0f1620;--ink:#e8eef6;--ink-2:#b3c0d1;--ink-3:#7d8ea0;
+    --line:#26313f;--line-2:#1c2531;--grid:rgba(120,160,210,.055);--grid-strong:rgba(120,160,210,.09);
+    --accent:#f5a742;--accent-soft:#2a2113;--accent-ink:#f7b862;
+    --p1:#5a9bff;--p2:#b18cff;--p3:#33c99a;--p4:#ff8a4c;--p5:#ff6b9d;--p6:#3bc4d0;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  .sheet {
+    min-height: 100vh;
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.6;
+    background-color: var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+      linear-gradient(var(--grid-strong) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-strong) 1px, transparent 1px);
+    background-size: 28px 28px, 28px 28px, 140px 140px, 140px 140px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 22px 90px; }
+
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 18px 22px; max-width: 1080px; margin: 0 auto;
+  }
+  .brand { display: flex; align-items: center; gap: 11px; font-family: var(--mono); font-size: 12.5px; letter-spacing: .04em; color: var(--ink-2); }
+  .brand .dot { width: 9px; height: 9px; border-radius: 2px; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+  .themebtn {
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--ink-2); background: var(--panel); border: 1px solid var(--line);
+    border-radius: 8px; padding: 7px 12px; cursor: pointer; transition: border-color .15s, color .15s;
+  }
+  .themebtn:hover { border-color: var(--accent); color: var(--accent-ink); }
+  .themebtn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .hero { padding: 26px 0 8px; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 12px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--accent-ink); display: inline-flex; align-items: center; gap: 10px; margin-bottom: 18px;
+  }
+  .eyebrow::before { content: ""; width: 34px; height: 1px; background: var(--accent); display: inline-block; }
+  h1 {
+    font-family: var(--sans); font-weight: 800; letter-spacing: -0.025em;
+    font-size: clamp(2.1rem, 6vw, 3.7rem); line-height: 1.03; margin: 0 0 18px;
+    text-wrap: balance;
+  }
+  h1 .thin { font-weight: 300; color: var(--ink-2); }
+  .lede { font-size: clamp(1rem, 2.4vw, 1.18rem); color: var(--ink-2); max-width: 62ch; margin: 0 0 26px; }
+
+  .stats { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 8px; }
+  .stat {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px 18px; min-width: 116px; box-shadow: var(--shadow);
+  }
+  .stat .n { font-family: var(--mono); font-size: 1.7rem; font-weight: 600; color: var(--ink); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .stat .l { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-top: 2px; }
+  .stat.live .n { color: var(--accent); }
+
+  .progress-card {
+    margin-top: 26px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 14px; padding: 20px 22px; box-shadow: var(--shadow);
+    display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+  }
+  .ring { position: relative; width: 74px; height: 74px; flex: none; }
+  .ring svg { transform: rotate(-90deg); }
+  .ring .val { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--mono); font-weight: 600; font-size: 15px; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .progress-meta { flex: 1; min-width: 200px; }
+  .progress-meta h3 { margin: 0 0 3px; font-size: 1rem; font-weight: 700; }
+  .progress-meta p { margin: 0; font-size: 13px; color: var(--ink-3); }
+  .resetbtn {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--ink-3);
+    background: none; border: 1px solid var(--line); border-radius: 7px; padding: 6px 10px; cursor: pointer;
+  }
+  .resetbtn:hover { color: var(--accent-ink); border-color: var(--accent); }
+
+  .sec-head { margin: 60px 0 22px; }
+  .sec-head .eyebrow { margin-bottom: 12px; }
+  .sec-head h2 { font-size: clamp(1.4rem, 3.5vw, 2rem); font-weight: 800; letter-spacing: -0.02em; margin: 0; }
+  .sec-head p { color: var(--ink-2); margin: 8px 0 0; max-width: 62ch; }
+
+  .map-scroll { overflow-x: auto; padding: 8px 2px 14px; }
+  .map { display: grid; grid-template-columns: repeat(6, minmax(150px, 1fr)); gap: 0; min-width: 760px; position: relative; }
+  .node { position: relative; padding: 0 8px; }
+  .node .wire { position: absolute; top: 22px; left: 0; right: 0; height: 2px; background: var(--line); z-index: 0; }
+  .node:first-child .wire { left: 50%; }
+  .node:last-child .wire { right: 50%; }
+  .node .bulb {
+    position: relative; z-index: 1; width: 44px; height: 44px; margin: 0 auto 12px;
+    border-radius: 11px; display: grid; place-items: center; font-family: var(--mono); font-weight: 600;
+    font-size: 13px; color: #fff; background: var(--pc); box-shadow: 0 4px 14px -3px var(--pc);
+    border: 3px solid var(--paper); transition: transform .18s;
+  }
+  a.node:hover .bulb { transform: translateY(-3px); }
+  .node .ph { text-align: center; font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .node .ttl { text-align: center; font-size: 13px; font-weight: 700; color: var(--ink); margin-top: 3px; line-height: 1.25; padding: 0 4px; }
+  .node .wk { text-align: center; font-family: var(--mono); font-size: 10.5px; color: var(--pc); margin-top: 5px; font-weight: 600; }
+  .node .mini { margin: 8px auto 0; width: 60px; height: 4px; border-radius: 3px; background: var(--line-2); overflow: hidden; }
+  .node .mini > i { display: block; height: 100%; width: 0; background: var(--pc); transition: width .4s; }
+  a.node { text-decoration: none; color: inherit; }
+
+  .phase {
+    scroll-margin-top: 20px;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 16px;
+    box-shadow: var(--shadow); margin-top: 22px; overflow: hidden;
+    border-top: 3px solid var(--pc);
+  }
+  .phase-head { display: flex; align-items: flex-start; gap: 16px; padding: 22px 24px 18px; border-bottom: 1px solid var(--line-2); flex-wrap: wrap; }
+  .phase-num {
+    font-family: var(--mono); font-weight: 600; font-size: 15px; color: #fff; background: var(--pc);
+    width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; flex: none;
+  }
+  .phase-title { flex: 1; min-width: 200px; }
+  .phase-title .tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--pc); font-weight: 600; }
+  .phase-title h3 { margin: 3px 0 4px; font-size: 1.3rem; font-weight: 800; letter-spacing: -0.015em; }
+  .phase-title p { margin: 0; font-size: 13.5px; color: var(--ink-2); }
+  .phase-weeks { font-family: var(--mono); font-size: 11px; color: var(--ink-3); text-align: right; letter-spacing: .04em; padding-top: 4px; }
+  .phase-prog { font-family: var(--mono); font-size: 11px; color: var(--pc); margin-top: 4px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  .weeks { display: grid; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 720px) { .weeks { grid-template-columns: 1fr; } }
+  .week { padding: 20px 24px; }
+  .week + .week { border-left: 1px solid var(--line-2); }
+  @media (max-width: 720px) { .week + .week { border-left: none; border-top: 1px solid var(--line-2); } }
+  .week h4 { margin: 0 0 4px; font-size: 12px; font-family: var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); display: flex; align-items: center; gap: 8px; }
+  .week h4 b { color: var(--ink); font-weight: 700; }
+  .week h4 .wnum { color: var(--pc); }
+  .week .buildlbl { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 10px; opacity: .8; }
+
+  ul.topics { list-style: none; margin: 0 0 4px; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+  ul.topics li { position: relative; }
+  ul.topics label {
+    display: flex; gap: 10px; align-items: flex-start; padding: 7px 8px; border-radius: 8px;
+    cursor: pointer; font-size: 13.5px; color: var(--ink-2); transition: background .12s; line-height: 1.4;
+  }
+  ul.topics label:hover { background: var(--panel-2); }
+  ul.topics input { flex: none; margin-top: 3px; width: 15px; height: 15px; accent-color: var(--accent); cursor: pointer; }
+  ul.topics input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  ul.topics label b { color: var(--ink); font-weight: 700; }
+  ul.topics input:checked ~ span { color: var(--ink-3); }
+  ul.topics input:checked ~ span b { text-decoration: line-through; text-decoration-color: var(--pc); color: var(--ink-3); }
+
+  .blocks { padding: 4px 24px 22px; display: grid; grid-template-columns: 1.15fr 1fr; gap: 16px; }
+  @media (max-width: 720px) { .blocks { grid-template-columns: 1fr; } }
+  .block { background: var(--panel-2); border: 1px solid var(--line-2); border-radius: 12px; padding: 15px 16px; }
+  .block.cap { border-color: var(--pc); background: color-mix(in srgb, var(--pc) 7%, var(--panel-2)); }
+  .block .bh { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); display: flex; align-items: center; gap: 7px; margin-bottom: 11px; }
+  .block.cap .bh { color: var(--pc); }
+  .block .bh .ic { width: 16px; height: 16px; }
+  .res { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .res li { font-size: 13px; line-height: 1.4; }
+  .res a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); font-weight: 600; transition: border-color .15s, color .15s; }
+  .res a:hover { color: var(--accent-ink); border-color: var(--accent); }
+  .res .src { color: var(--ink-3); font-family: var(--mono); font-size: 11px; }
+  .cap .capname { font-size: 15px; font-weight: 800; color: var(--ink); margin: 0 0 6px; letter-spacing: -0.01em; }
+  .cap p { margin: 0 0 10px; font-size: 13px; color: var(--ink-2); line-height: 1.5; }
+  .cap .must { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .cap .must li { font-family: var(--mono); font-size: 10.5px; color: var(--pc); border: 1px solid var(--pc); border-radius: 20px; padding: 3px 9px; opacity: .95; }
+
+  .method { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px; }
+  @media (max-width: 720px) { .method { grid-template-columns: 1fr; } }
+  .mcard { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 20px; box-shadow: var(--shadow); }
+  .mcard .mn { font-family: var(--mono); font-size: 12px; color: var(--accent); font-weight: 600; letter-spacing: .05em; }
+  .mcard h4 { margin: 8px 0 6px; font-size: 1.05rem; font-weight: 800; }
+  .mcard p { margin: 0; font-size: 13.5px; color: var(--ink-2); }
+
+  .foot { margin-top: 60px; padding-top: 22px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 12px; color: var(--ink-3); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .foot .disc { max-width: 60ch; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="sheet">
+  <header class="topbar">
+    <div class="brand"><span class="dot"></span> FRONTEND · SYSTEM DESIGN · BUILD LOG</div>
+    <button class="themebtn" id="themeToggle" aria-label="Toggle color theme">◐ Theme</button>
+  </header>
+
+  <div class="wrap">
+    <section class="hero">
+      <span class="eyebrow">Build-first track · 12 weeks</span>
+      <h1>Frontend System Design,<br><span class="thin">learned by shipping code.</span></h1>
+      <p class="lede">No passive reading. Har topic ke saath ek <b>chhota practical project</b> hai jise tum khud implement karoge — apna debounce likho, apna mini-Redux, apna service worker, apni virtualized list. Resources sirf build karte waqt reference ke liye hain. Har phase ke end pe ek <b>capstone</b> jo us phase ki saari cheezein ek real app mein jodta hai.</p>
+      <div class="stats">
+        <div class="stat"><div class="n">12</div><div class="l">Weeks</div></div>
+        <div class="stat"><div class="n">06</div><div class="l">Phases</div></div>
+        <div class="stat"><div class="n" id="topicCount">—</div><div class="l">Mini-builds</div></div>
+        <div class="stat"><div class="n">06</div><div class="l">Capstones</div></div>
+        <div class="stat live"><div class="n" id="doneCount">0</div><div class="l">Shipped</div></div>
+      </div>
+
+      <div class="progress-card">
+        <div class="ring">
+          <svg width="74" height="74" viewBox="0 0 74 74">
+            <circle cx="37" cy="37" r="31" fill="none" stroke="var(--line)" stroke-width="7"/>
+            <circle id="ringFill" cx="37" cy="37" r="31" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round" stroke-dasharray="195" stroke-dashoffset="195"/>
+          </svg>
+          <div class="val" id="ringPct">0%</div>
+        </div>
+        <div class="progress-meta">
+          <h3>Build tracker</h3>
+          <p>Jo project ship kar do uska checkbox tick karo — sab is browser mein save rehta hai. Upar wali circuit map live update hoti hai.</p>
+        </div>
+        <button class="resetbtn" id="resetBtn">Reset</button>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head">
+        <span class="eyebrow">The route</span>
+        <h2>Six phases, wired in sequence</h2>
+        <p>Foundations se interview synthesis tak. Kisi bhi node pe click karke us phase pe jao — har bulb neeche live fill hoti hai jaise-jaise tum builds ship karte ho.</p>
+      </div>
+      <div class="map-scroll">
+        <div class="map" id="circuitMap">
+          <a class="node" href="#phase-1" style="--pc:var(--p1)"><span class="wire"></span><span class="bulb">01</span><div class="ph">Foundations</div><div class="ttl">Network &amp; Browser</div><div class="wk">Wk 1–2</div><div class="mini"><i data-mini="1"></i></div></a>
+          <a class="node" href="#phase-2" style="--pc:var(--p2)"><span class="wire"></span><span class="bulb">02</span><div class="ph">Rendering</div><div class="ttl">Render &amp; Performance</div><div class="wk">Wk 3–4</div><div class="mini"><i data-mini="2"></i></div></a>
+          <a class="node" href="#phase-3" style="--pc:var(--p3)"><span class="wire"></span><span class="bulb">03</span><div class="ph">Data</div><div class="ttl">Comms &amp; Caching</div><div class="wk">Wk 5–6</div><div class="mini"><i data-mini="3"></i></div></a>
+          <a class="node" href="#phase-4" style="--pc:var(--p4)"><span class="wire"></span><span class="bulb">04</span><div class="ph">Structure</div><div class="ttl">Architecture &amp; State</div><div class="wk">Wk 7–8</div><div class="mini"><i data-mini="4"></i></div></a>
+          <a class="node" href="#phase-5" style="--pc:var(--p5)"><span class="wire"></span><span class="bulb">05</span><div class="ph">Resilience</div><div class="ttl">Scale &amp; Offline</div><div class="wk">Wk 9–10</div><div class="mini"><i data-mini="5"></i></div></a>
+          <a class="node" href="#phase-6" style="--pc:var(--p6)"><span class="wire"></span><span class="bulb">06</span><div class="ph">Synthesis</div><div class="ttl">Systems &amp; Interview</div><div class="wk">Wk 11–12</div><div class="mini"><i data-mini="6"></i></div></a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head">
+        <span class="eyebrow">The build plan</span>
+        <h2>Phase-by-phase — implement everything</h2>
+        <p>Har checkbox ek chhota project hai (kuch ghanton se 1–2 din ka). Left/right columns ke builds ship karo, phir phase ke end wala capstone banao. React/TS ya vanilla — jo bhi comfortable ho.</p>
+      </div>
+
+      <!-- PHASE 1 -->
+      <article class="phase" id="phase-1" style="--pc:var(--p1)">
+        <div class="phase-head">
+          <div class="phase-num">01</div>
+          <div class="phase-title">
+            <div class="tag">Foundations</div>
+            <h3>The Network &amp; The Browser</h3>
+            <p>Concepts ko code karke pakdo — network timing khud measure karo, event loop khud order karo.</p>
+          </div>
+          <div class="phase-weeks">WEEKS 1–2<div class="phase-prog" data-prog="1">0%</div></div>
+        </div>
+        <div class="weeks">
+          <div class="week">
+            <h4><span class="wnum">W1</span> · <b>The network</b></h4>
+            <p class="buildlbl">Build these</p>
+            <ul class="topics" data-phase="1">
+              <li><label><input type="checkbox" data-id="p1-1"><span><b>Request timing logger</b> — Node script jo DNS / TCP / TLS / TTFB alag-alag measure kare (perf hooks)</span></label></li>
+              <li><label><input type="checkbox" data-id="p1-2"><span><b>Conditional-cache proxy</b> — chhota cache jo <code>ETag</code> / <code>Cache-Control</code> respect kare (304 handling)</span></label></li>
+              <li><label><input type="checkbox" data-id="p1-3"><span><b>H1 vs H2 waterfall</b> — 30 images dono protocols pe load karke timing chart banao</span></label></li>
+              <li><label><input type="checkbox" data-id="p1-4"><span><b>CORS playground</b> — Express server + preflight ko live dekho &amp; toggle karo</span></label></li>
+            </ul>
+          </div>
+          <div class="week">
+            <h4><span class="wnum">W2</span> · <b>The browser</b></h4>
+            <p class="buildlbl">Build these</p>
+            <ul class="topics" data-phase="1">
+              <li><label><input type="checkbox" data-id="p1-5"><span><b>Event-loop visualizer</b> — sync / setTimeout / Promise / queueMicrotask ka execution order predict &amp; log karo</span></label></li>
+              <li><label><input type="checkbox" data-id="p1-6"><span><b>debounce &amp; throttle</b> — dono khud scratch se likho + ek live demo page</span></label></li>
+              <li><label><input type="checkbox" data-id="p1-7"><span><b>Reflow vs repaint meter</b> — properties toggle karke layout thrashing measure karo</span></label></li>
+              <li><label><input type="checkbox" data-id="p1-8"><span><b>CRP demo</b> — render-blocking vs <code>async/defer</code> scripts ka paint time compare</span></label></li>
+            </ul>
+          </div>
+        </div>
+        <div class="blocks">
+          <div class="block">
+            <div class="bh"><span class="ic">📚</span> Reference while building</div>
+            <ul class="res">
+              <li><a href="https://hpbn.co/" target="_blank" rel="noopener">High Performance Browser Networking</a> <span class="src">— Grigorik, free</span></li>
+              <li><a href="https://www.youtube.com/watch?v=cCOL7MC4Pl0" target="_blank" rel="noopener">In The Loop</a> <span class="src">— Jake Archibald</span></li>
+              <li><a href="https://web.dev/articles/critical-rendering-path" target="_blank" rel="noopener">Critical Rendering Path</a> <span class="src">— web.dev</span></li>
+            </ul>
+          </div>
+          <div class="block cap">
+            <div class="bh"><span class="ic">🚀</span> Capstone</div>
+            <div class="capname">Network Inspector mini-tool</div>
+            <p>Ek page jahan koi bhi URL daalo → uske resources ka timing waterfall + cache/headers breakdown dikhe. Apne timing logger + cache logic ko combine karo.</p>
+            <ul class="must"><li>perf API</li><li>waterfall UI</li><li>headers parse</li></ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- PHASE 2 -->
+      <article class="phase" id="phase-2" style="--pc:var(--p2)">
+        <div class="phase-head">
+          <div class="phase-num">02</div>
+          <div class="phase-title">
+            <div class="tag">Rendering</div>
+            <h3>Rendering Strategies &amp; Performance</h3>
+            <p>Ek hi app ko alag-alag render karke farq khud feel karo, phir slow page ko optimize karo.</p>
+          </div>
+          <div class="phase-weeks">WEEKS 3–4<div class="phase-prog" data-prog="2">0%</div></div>
+        </div>
+        <div class="weeks">
+          <div class="week">
+            <h4><span class="wnum">W3</span> · <b>Where to render</b></h4>
+            <p class="buildlbl">Build these</p>
+            <ul class="topics" data-phase="2">
+              <li><label><input type="checkbox" data-id="p2-1"><span><b>Same app, 3 ways</b> — ek chhote app ko CSR, SSR (<code>renderToString</code>) &amp; SSG (pre-render) mein banao, compare</span></label></li>
+              <li><label><input type="checkbox" data-id="p2-2"><span><b>Manual hydration</b> — server HTML bhejo, phir client-side listeners attach karke "hydrate" karo</span></label></li>
+              <li><label><input type="checkbox" data-id="p2-3"><span><b>Streaming SSR</b> — <code>renderToPipeableStream</code> se progressive HTML stream karo</span></label></li>
+              <li><label><input type="checkbox" data-id="p2-4"><span><b>Islands demo</b> — mostly-static page + do interactive "islands" jo alag hydrate hon</span></label></li>
+            </ul>
+          </div>
+          <div class="week">
+            <h4><span class="wnum">W4</span> · <b>Make it fast</b></h4>
+            <p class="buildlbl">Build these</p>
+            <ul class="topics" data-phase="2">
+              <li><label><input type="checkbox" data-id="p2-5"><span><b>Virtualized list</b> — 10k rows ki windowed list scratch se (koi library nahi)</span></label></li>
+              <li><label><input type="checkbox" data-id="p2-6"><span><b>Lazy image loader</b> — IntersectionObserver + blur-up placeholder, zero CLS</span></label></li>
+              <li><label><input type="checkbox" data-id="p2-7"><span><b>Web Worker offload</b> — heavy computation ko worker mein daalo, main thread unblock measure karo</span></label></li>
+              <li><label><input type="checkbox" data-id="p2-8"><span><b>Lighthouse rescue</b> — ek deliberately slow page ko green LCP/INP/CLS tak optimize karo (before/after)</span></label></li>
+            </ul>
+          </div>
+        </div>
+        <div class="blocks">
+          <div class="block">
+            <div class="bh"><span class="ic">📚</span> Reference while building</div>
+            <ul class="res">
+              <li><a href="https://www.patterns.dev/vanilla/rendering-patterns/" target="_blank" rel="noopener">Rendering Patterns</a> <span class="src">— patterns.dev</span></li>
+              <li><a href="https://web.dev/explore/learn-core-web-vitals" target="_blank" rel="noopener">Learn Core Web Vitals</a> <span class="src">— web.dev</span></li>
+              <li><a href="https://www.joshwcomeau.com/react/the-perils-of-rehydration/" target="_blank" rel="noopener">Perils of Rehydration</a> <span class="src">— Josh Comeau</span></li>
+            </ul>
+          </div>
+          <div class="block cap">
+            <div class="bh"><span class="ic">🚀</span> Capstone</div>
+            <div class="capname">Infinite-scroll news feed</div>
+            <p>Virtualized list + lazy images + IntersectionObserver pagination. Target: Lighthouse performance ≥ 90 aur 10k+ items pe smooth scroll.</p>
+            <ul class="must"><li>virtualization</li><li>lazy media</li><li>LH ≥ 90</li></ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- PHASE 3 -->
+      <article class="phase" id="phase-3" style="--pc:var(--p3)">
+        <div class="phase-head">
+          <div class="phase-num">03</div>
+          <div class="phase-title">
+            <div class="tag">Data</div>
+            <h3>Communication &amp; Client Caching</h3>
+            <p>Real-time transports khud implement karo, phir apna mini data-fetching library banao.</p>
+          </div>
+          <div class="phase-weeks">WEEKS 5–6<div class="phase-prog" data-prog="3">0%</div></div>
+        </div>
+        <div class="weeks">
+          <div class="week">
+            <h4><span class="wnum">W5</span> · <b>Talking to the server</b></h4>
+            <p class="buildlbl">Build these</p>
+            <ul class="topics" data-phase="3">
+              <li><label><input type="checkbox" data-id="p3-1"><span><b>Live counter × 3</b> — same feature polling, SSE &amp; WebSocket teeno se banao, trade-offs note karo</span></label></li>
+              <li><label><input type="checkbox" data-id="p3-2"><span><b>REST vs GraphQL client</b> — ek "todos" API dono style mein consume karo</span></label></li>
+              <li><label><input type="checkbox" data-id="p3-3"><span><b>Cursor pagination</b> — infinite query with cursor + "load more" (offset se compare)</span></label></li>
+              <li><label><input type="checkbox" data-id="p3-4"><span><b>AbortController search</b> — stale requests cancel + in-flight dedupe</span></label></li>
+            </ul>
+          </div>
+          <div class="week">
+            <h4><span class="wnum">W6</span> · <b>Data on the client</b></h4>
+            <p class="buildlbl">Build these</p>
+            <ul class="topics" data-phase="3">
+              <li><label><input type="checkbox" data-id="p3-5"><span><b>Mini React Query</b> — cache + stale-while-revalidate + background refetch khud likho</span></label></li>
+              <li><label><input type="checkbox" data-id="p3-6"><span><b>Optimistic like button</b> — instant update + failure pe rollback</span></label></li>
+              <li><label><input type="checkbox" data-id="p3-7"><span><b>IndexedDB list</b> — bade dataset ko persist + query karo (idb)</span></label></li>
+              <li><label><input type="checkbox" data-id="p3-8"><span><b>Normalized store</b> — entities-by-id cache + selector for a feed</span></label></li>
+            </ul>
+          </div>
+        </div>
+        <div class="blocks">
+          <div class="block">
+            <div class="bh"><span class="ic">📚</span> Reference while building</div>
+            <ul class="res">
+              <li><a href="https://www.greatfrontend.com/front-end-system-design-playbook" target="_blank" rel="noopener">FE System Design Playbook</a> <span class="src">— GreatFrontend</span></li>
+              <li><a href="https://tanstack.com/query/latest" target="_blank" rel="noopener">TanStack Query docs</a> <span class="src">— caching patterns</span></li>
+              <li><a href="https://web.dev/articles/indexeddb" target="_blank" rel="noopener">Working with IndexedDB</a> <span class="src">— web.dev</span></li>
+            </ul>
+          </div>
+          <div class="block cap">
+            <div class="bh"><span class="ic">🚀</span> Capstone</div>
+            <div class="capname">Typeahead search + live chat</div>
+            <p>Autocomplete: debounce + cancel + cache + keyboard nav. Stretch: WebSocket chat with optimistic send &amp; auto-reconnect.</p>
+            <ul class="must"><li>debounce+cancel</li><li>cache</li><li>a11y keys</li></ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- PHASE 4 -->
+      <article class="phase" id="phase-4" style="--pc:var(--p4)">
+        <div class="phase-head">
+          <div class="phase-num">04</div>
+          <div class="phase-title">
+            <div class="tag">Structure</div>
+            <h3>Architecture &amp; State</h3>
+            <p>Patterns ko code karke samjho — apna Redux likho, state machine banao, micro-frontend chalao.</p>
+          </div>
+          <div class="phase-weeks">WEEKS 7–8<div class="phase-prog" data-prog="4">0%</div></div>
+        </div>
+        <div class="weeks">
+          <div class="week">
+            <h4><span class="wnum">W7</span> · <b>Structuring the app</b></h4>
+            <p class="buildlbl">Build these</p>
+            <ul class="topics" data-phase="4">
+              <li><label><input type="checkbox" data-id="p4-1"><span><b>Compound component</b> — Tabs ya Accordion context ke saath (<code>&lt;Tabs&gt;&lt;Tab/&gt;</code> API)</span></label></li>
+              <li><label><input type="checkbox" data-id="p4-2"><span><b>Component-lib starter</b> — Button/Input variants + design tokens</span></label></li>
+              <li><label><input type="checkbox" data-id="p4-3"><span><b>Monorepo</b> — pnpm workspaces, ek shared <code>ui</code> package do apps mein use</span></label></li>
+              <li><label><input type="checkbox" data-id="p4-4"><span><b>Micro-frontend</b> — Module Federation (Vite) se remote component load karo</span></label></li>
+            </ul>
+          </div>
+          <div class="week">
+            <h4><span class="wnum">W8</span> · <b>Managing state</b></h4>
+            <p class="buildlbl">Build these</p>
+            <ul class="topics" data-phase="4">
+              <li><label><input type="checkbox" data-id="p4-5"><span><b>Mini-Redux</b> — <code>createStore</code>, dispatch, subscribe, reducers scratch se</span></label></li>
+              <li><label><input type="checkbox" data-id="p4-6"><span><b>State-category app</b> — local vs URL vs server vs global, ek hi app mein saaf demo</span></label></li>
+              <li><label><input type="checkbox" data-id="p4-7"><span><b>Selectors + memo</b> — derived state with a <code>reselect</code>-style memoizer</span></label></li>
+              <li><label><input type="checkbox" data-id="p4-8"><span><b>Checkout state machine</b> — multi-step flow XState (ya khud ka FSM) se model karo</span></label></li>
+            </ul>
+          </div>
+        </div>
+        <div class="blocks">
+          <div class="block">
+            <div class="bh"><span class="ic">📚</span> Reference while building</div>
+            <ul class="res">
+              <li><a href="https://www.patterns.dev/" target="_blank" rel="noopener">Design Patterns</a> <span class="src">— patterns.dev</span></li>
+              <li><a href="https://martinfowler.com/articles/micro-frontends.html" target="_blank" rel="noopener">Micro Frontends</a> <span class="src">— Martin Fowler</span></li>
+              <li><a href="https://kentcdodds.com/blog/application-state-management-with-react" target="_blank" rel="noopener">App state management</a> <span class="src">— Kent C. Dodds</span></li>
+            </ul>
+          </div>
+          <div class="block cap">
+            <div class="bh"><span class="ic">🚀</span> Capstone</div>
+            <div class="capname">Analytics dashboard</div>
+            <p>Filters URL state mein, data server state (mini-query) mein, UI local state. Widget-based architecture + shared component lib.</p>
+            <ul class="must"><li>URL state</li><li>widget arch</li><li>shared UI</li></ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- PHASE 5 -->
+      <article class="phase" id="phase-5" style="--pc:var(--p5)">
+        <div class="phase-head">
+          <div class="phase-num">05</div>
+          <div class="phase-title">
+            <div class="tag">Resilience</div>
+            <h3>Scale, Offline &amp; Reliability</h3>
+            <p>Service worker, background sync aur ek chhota CRDT khud likho — flaky network ko handle karna seekho.</p>
+          </div>
+          <div class="phase-weeks">WEEKS 9–10<div class="phase-prog" data-prog="5">0%</div></div>
+        </div>
+        <div class="weeks">
+          <div class="week">
+            <h4><span class="wnum">W9</span> · <b>Offline &amp; sync</b></h4>
+            <p class="buildlbl">Build these</p>
+            <ul class="topics" data-phase="5">
+              <li><label><input type="checkbox" data-id="p5-1"><span><b>Service worker cache</b> — assets cache-first, API network-first fallback</span></label></li>
+              <li><label><input type="checkbox" data-id="p5-2"><span><b>Installable PWA</b> — manifest + offline fallback page + install prompt</span></label></li>
+              <li><label><input type="checkbox" data-id="p5-3"><span><b>Background sync queue</b> — offline actions queue karo, reconnect pe flush</span></label></li>
+              <li><label><input type="checkbox" data-id="p5-4"><span><b>Tiny CRDT</b> — LWW register ya G-counter, do replicas merge karke conflict resolve</span></label></li>
+            </ul>
+          </div>
+          <div class="week">
+            <h4><span class="wnum">W10</span> · <b>Reliability</b></h4>
+            <p class="buildlbl">Build these</p>
+            <ul class="topics" data-phase="5">
+              <li><label><input type="checkbox" data-id="p5-5"><span><b>Error boundary</b> — fallback UI + reset + error report</span></label></li>
+              <li><label><input type="checkbox" data-id="p5-6"><span><b>Retry with backoff</b> — <code>fetch</code> wrapper: exponential backoff + jitter + max retries</span></label></li>
+              <li><label><input type="checkbox" data-id="p5-7"><span><b>RUM collector</b> — Web Vitals capture karke ek log endpoint pe bhejo</span></label></li>
+              <li><label><input type="checkbox" data-id="p5-8"><span><b>i18n switcher</b> — en/hi lazy-loaded bundles + RTL toggle</span></label></li>
+            </ul>
+          </div>
+        </div>
+        <div class="blocks">
+          <div class="block">
+            <div class="bh"><span class="ic">📚</span> Reference while building</div>
+            <ul class="res">
+              <li><a href="https://web.dev/learn/pwa" target="_blank" rel="noopener">Learn PWA</a> <span class="src">— web.dev</span></li>
+              <li><a href="https://web.dev/articles/offline-cookbook" target="_blank" rel="noopener">The Offline Cookbook</a> <span class="src">— Jake Archibald</span></li>
+              <li><a href="https://crdt.tech/" target="_blank" rel="noopener">CRDT.tech</a> <span class="src">— resources &amp; papers</span></li>
+            </ul>
+          </div>
+          <div class="block cap">
+            <div class="bh"><span class="ic">🚀</span> Capstone</div>
+            <div class="capname">Offline-first notes app</div>
+            <p>IndexedDB + service worker + background sync + CRDT-based conflict resolution. Airplane mode mein likho, online aake merge ho jaaye.</p>
+            <ul class="must"><li>service worker</li><li>bg sync</li><li>conflict merge</li></ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- PHASE 6 -->
+      <article class="phase" id="phase-6" style="--pc:var(--p6)">
+        <div class="phase-head">
+          <div class="phase-num">06</div>
+          <div class="phase-title">
+            <div class="tag">Synthesis</div>
+            <h3>Systems, A11y, Security &amp; Interview</h3>
+            <p>Cross-cutting cheezein build karo, phir sab kuch timed mock builds mein synthesize karo.</p>
+          </div>
+          <div class="phase-weeks">WEEKS 11–12<div class="phase-prog" data-prog="6">0%</div></div>
+        </div>
+        <div class="weeks">
+          <div class="week">
+            <h4><span class="wnum">W11</span> · <b>Cross-cutting builds</b></h4>
+            <p class="buildlbl">Build these</p>
+            <ul class="topics" data-phase="6">
+              <li><label><input type="checkbox" data-id="p6-1"><span><b>Token-based theming</b> — CSS vars design tokens + light/dark themeable components</span></label></li>
+              <li><label><input type="checkbox" data-id="p6-2"><span><b>Accessible Modal</b> — focus trap, ESC, ARIA, focus restore (WAI-ARIA spec)</span></label></li>
+              <li><label><input type="checkbox" data-id="p6-3"><span><b>Accessible Combobox</b> — full keyboard nav (arrows/enter/esc), screen-reader friendly</span></label></li>
+              <li><label><input type="checkbox" data-id="p6-4"><span><b>Break &amp; fix security</b> — ek XSS demo banao phir CSP se fix karo; CSRF token flow</span></label></li>
+            </ul>
+          </div>
+          <div class="week">
+            <h4><span class="wnum">W12</span> · <b>Interview synthesis</b></h4>
+            <p class="buildlbl">Do these</p>
+            <ul class="topics" data-phase="6">
+              <li><label><input type="checkbox" data-id="p6-5"><span><b>RADIO checklist</b> — apna reusable template banao (Requirements→Architecture→Data→API→Optimize)</span></label></li>
+              <li><label><input type="checkbox" data-id="p6-6"><span><b>Timed mock 1</b> — 45 min mein autocomplete ka core design + build</span></label></li>
+              <li><label><input type="checkbox" data-id="p6-7"><span><b>Timed mock 2</b> — news feed: whiteboard + core code, trade-offs bolo</span></label></li>
+              <li><label><input type="checkbox" data-id="p6-8"><span><b>Record &amp; review</b> — ek design khud ko explain karke record karo, self-review</span></label></li>
+            </ul>
+          </div>
+        </div>
+        <div class="blocks">
+          <div class="block">
+            <div class="bh"><span class="ic">📚</span> Reference while building</div>
+            <ul class="res">
+              <li><a href="https://www.greatfrontend.com/front-end-system-design-playbook/framework" target="_blank" rel="noopener">The RADIO Framework</a> <span class="src">— GreatFrontend</span></li>
+              <li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/" target="_blank" rel="noopener">ARIA Authoring Practices</a> <span class="src">— W3C patterns</span></li>
+              <li><a href="https://cheatsheetseries.owasp.org/" target="_blank" rel="noopener">OWASP Cheat Sheets</a> <span class="src">— XSS, CSRF, CSP</span></li>
+            </ul>
+          </div>
+          <div class="block cap">
+            <div class="bh"><span class="ic">🚀</span> Capstone</div>
+            <div class="capname">Ship a mini design-system</div>
+            <p>3–4 fully accessible, themeable, documented components. Stretch: 3 full timed mock builds record karke self-review.</p>
+            <ul class="must"><li>a11y</li><li>tokens</li><li>docs</li></ul>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section>
+      <div class="sec-head">
+        <span class="eyebrow">How to run each build</span>
+        <h2>The shipping loop</h2>
+      </div>
+      <div class="method">
+        <div class="mcard">
+          <div class="mn">01 / SPIKE</div>
+          <h4>Read just enough</h4>
+          <p>Sirf itna padho ki build shuru ho jaaye. Deep dive baad mein — pehle haath gande karo.</p>
+        </div>
+        <div class="mcard">
+          <div class="mn">02 / BUILD</div>
+          <h4>Implement it small</h4>
+          <p>Scope chhota rakho — ek concept, ek working demo. Library use karne se pehle khud likhne ki koshish karo.</p>
+        </div>
+        <div class="mcard">
+          <div class="mn">03 / SHIP &amp; EXPLAIN</div>
+          <h4>Commit + articulate</h4>
+          <p>Repo mein push karo, README mein "kyun A over B" likho, checkbox tick. Yahi interview answer ban jaayega.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <div class="disc">Build-first roadmap · resources external references hain, current content verify kar lena. Har checkbox ek shippable project · progress locally browser mein save hota hai.</div>
+      <div>BUILD LOG v2 · 48 MINI-BUILDS · 06 CAPSTONES</div>
+    </footer>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var KEY = "fsd-roadmap-progress-v1";
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('ul.topics input[type=checkbox]'));
+  var total = boxes.length;
+  document.getElementById('topicCount').textContent = total;
+
+  var tBtn = document.getElementById('themeToggle');
+  tBtn.addEventListener('click', function () {
+    var cur = root.getAttribute('data-theme');
+    if (!cur) cur = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    root.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+  });
+
+  function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
+  function save(state) { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  var state = load();
+
+  var RING_LEN = 195;
+  function refresh() {
+    var done = 0;
+    var perPhase = {1:{d:0,t:0},2:{d:0,t:0},3:{d:0,t:0},4:{d:0,t:0},5:{d:0,t:0},6:{d:0,t:0}};
+    boxes.forEach(function (b) {
+      var ph = b.closest('ul.topics').getAttribute('data-phase');
+      perPhase[ph].t++;
+      if (b.checked) { done++; perPhase[ph].d++; }
+    });
+    var pct = total ? Math.round(done / total * 100) : 0;
+    document.getElementById('doneCount').textContent = done;
+    document.getElementById('ringPct').textContent = pct + '%';
+    document.getElementById('ringFill').setAttribute('stroke-dashoffset', RING_LEN * (1 - pct / 100));
+    Object.keys(perPhase).forEach(function (ph) {
+      var p = perPhase[ph];
+      var pp = p.t ? Math.round(p.d / p.t * 100) : 0;
+      var mini = document.querySelector('[data-mini="' + ph + '"]');
+      if (mini) mini.style.width = pp + '%';
+      var lbl = document.querySelector('[data-prog="' + ph + '"]');
+      if (lbl) lbl.textContent = pp + '%';
+    });
+  }
+
+  boxes.forEach(function (b) {
+    var id = b.getAttribute('data-id');
+    if (state[id]) b.checked = true;
+    b.addEventListener('change', function () {
+      state[id] = b.checked;
+      if (!b.checked) delete state[id];
+      save(state);
+      refresh();
+    });
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', function () {
+    if (!confirm('Saara build progress reset kar dein?')) return;
+    state = {};
+    save(state);
+    boxes.forEach(function (b) { b.checked = false; });
+    refresh();
+  });
+
+  refresh();
+})();
+</script>
+
+</body></html>
