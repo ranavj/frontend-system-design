@@ -4,13 +4,14 @@
 > Sync partners: [`rag-mastery/PROGRESS.md`](../rag-mastery/PROGRESS.md) · [`python-foundations/PROGRESS.md`](../python-foundations/PROGRESS.md)
 > Live checkbox tracker: [`artifact/roadmap-tracker.html`](artifact/roadmap-tracker.html)
 
-**Status:** 🟠 Repo scaffolded · Week 1 · Build 1 (Request timing logger) — shuru karna hai
+**Status:** 🟢 Week 1 · Build 1 (Request timing logger) — DONE ✅ · Build 2 (cache proxy) next
 
 ---
 
 ## ✅ Completed
 
 - **Setup** — repo scaffold (README, ROADMAP, PROGRESS, artifact tracker), Week 1 folder + Build 1 guide ready
+- **Wk1 · Build 1** — Request timing logger ✅ (DNS/TCP/TLS/TTFB/download breakdown + http handling + bottleneck highlight)
 
 ---
 
@@ -19,7 +20,7 @@
 ### Week 1 · The Network
 | # | Build | Status | Notes |
 |---|-------|--------|-------|
-| 1 | Request timing logger (DNS/TCP/TLS/TTFB) | ⬜ | starter + guide `01-request-timing-logger/` mein ready |
+| 1 | Request timing logger (DNS/TCP/TLS/TTFB) | ✅ | done — 5-stage breakdown, http handling, bottleneck highlight |
 | 2 | Conditional-cache proxy (ETag/304) | ⬜ | |
 | 3 | H1 vs H2 waterfall | ⬜ | |
 | 4 | CORS playground | ⬜ | |

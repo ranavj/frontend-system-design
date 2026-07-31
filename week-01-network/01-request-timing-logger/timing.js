@@ -50,12 +50,12 @@ req.on("error", (err) => {
 function report() {
   // Har stage = do consecutive marks ka difference.
   // TODO: in 5 values ko marks se calculate karo (ms, round karo).
-  const dns = /* marks.dns - marks.start */ 0;
-  const tcp = /* marks.tcp - marks.dns */ 0;
-  const tls = /* marks.tls - marks.tcp */ 0;      // agar http (no TLS) ho to handle karo
-  const ttfb = /* marks.ttfb - marks.tls */ 0;
-  const download = /* marks.end - marks.ttfb */ 0;
-  const total = /* marks.end - marks.start */ 0;
+  const dns = marks.dns - marks.start;
+  const tcp = marks.tcp - marks.dns;
+  const tls = marks.tls ? marks.tls - marks.tcp : 0;      // agar http (no TLS) ho to handle karo
+  const ttfb = marks.ttfb - (marks.tls ? marks.tls : marks.tcp);
+  const download = marks.end - marks.ttfb;
+  const total = marks.end - marks.start;
 
   const rows = [
     ["DNS lookup", dns],
@@ -73,6 +73,13 @@ function report() {
   console.log(`   ${"Total".padEnd(16)}: ${String(Math.round(total)).padStart(4)} ms`);
 
   // 5) Stretch: sabse slow stage ko highlight karo.
-  // TODO: rows mein se max ms wala stage nikaalo aur print karo:
-  //   ⚠️  Bottleneck: <stage>
+  // rows mein se max ms wala stage dhoondo, phir print karo.
+  let slowest = rows[0];                 // maan lo pehla hi sabse slow hai
+  for (const row of rows) {              // ab har row ko check karo
+    if (row[1] > slowest[1]) {           // row[1] = ms; agar isse bada mila
+      slowest = row;                     // to isko naya "slowest" bana do
+    }
+  }
+  console.log(`   ⚠️  Bottleneck: ${slowest[0]} (${Math.round(slowest[1])} ms)`);
+  //                               slowest[0] = label,  slowest[1] = ms
 }
