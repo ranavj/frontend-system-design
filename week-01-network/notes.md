@@ -76,9 +76,9 @@ TCP/SOCKET ← asli taar, bytes ka aana-jaana (rasta)
 - **Insight (kaun sa stage slow, kyun):** api.github.com pe **TLS handshake** bottleneck (~62ms). TTFB bada = backend slow; TLS bada = connection reuse (keep-alive) dekho; download bada = payload/CDN dekho.
 
 ## Build 2 — Conditional-cache proxy
-- **Kya seekha:**
-- **React/JS se juda:**
-- **Insight:**
+- **Kya seekha:** Cache proxy har run pe 3 possibilities handle karta hai. **FRESH** (`max-age` ke andar) → seedha cache se serve, koi network call nahi. **STALE** → conditional GET bhejo (`If-None-Match: <etag>`); server **304** de to content nahi badla — bas `storedAt` refresh karo (etag/body same rehte hain, kyunki 304 response mein body hoti hi nahi); server **200** de to content badal gaya — naya body + naya etag save karo. **NO CACHE** (pehli baar) → normal GET, response cache mein save karo. `ETag` = resource ka fingerprint; `Cache-Control: max-age=N` = kitni der tak fresh maano bina server se pooche.
+- **React/JS se juda:** Yehi exact model browser khud follow karta hai apne HTTP cache ke liye (CSS/JS/images) — DevTools Network tab mein "(from disk cache)" ya `304` status isi wajah se dikhta hai. Stale-while-revalidate concept (Week 6 · Build 5 "Mini React Query") bhi isi fresh/stale/revalidate pattern pe based hoga.
+- **Insight:** 304 ka poora point bandwidth bachana hai — content change nahi hua to server poora body dobara nahi bhejta, sirf ek chhota status code. Isliye bade ya rarely-changing resources (images, config, lists) ke liye ye bahut effective optimization hai — network call to phir bhi hoti hai (revalidate ke liye), par payload bahut chhota.
 
 ## Build 3 — H1 vs H2 waterfall
 - **Kya seekha:**

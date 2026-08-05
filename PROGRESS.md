@@ -4,7 +4,7 @@
 > Sync partners: [`rag-mastery/PROGRESS.md`](../rag-mastery/PROGRESS.md) · [`python-foundations/PROGRESS.md`](../python-foundations/PROGRESS.md)
 > Live checkbox tracker: [`artifact/roadmap-tracker.html`](artifact/roadmap-tracker.html)
 
-**Status:** 🟢 Week 1 · Build 1 (Request timing logger) — DONE ✅ · Build 2 (cache proxy) next
+**Status:** 🟢 Week 1 · Build 2 (cache proxy) — DONE ✅ · Build 3 (H1 vs H2 waterfall) next
 
 ---
 
@@ -12,6 +12,7 @@
 
 - **Setup** — repo scaffold (README, ROADMAP, PROGRESS, artifact tracker), Week 1 folder + Build 1 guide ready
 - **Wk1 · Build 1** — Request timing logger ✅ (DNS/TCP/TLS/TTFB/download breakdown + http handling + bottleneck highlight)
+- **Wk1 · Build 2** — Conditional-cache proxy ✅ (fresh/stale/miss handling, ETag + If-None-Match, 304 revalidation)
 
 ---
 
@@ -21,7 +22,7 @@
 | # | Build | Status | Notes |
 |---|-------|--------|-------|
 | 1 | Request timing logger (DNS/TCP/TLS/TTFB) | ✅ | done — 5-stage breakdown, http handling, bottleneck highlight |
-| 2 | Conditional-cache proxy (ETag/304) | ⬜ | |
+| 2 | Conditional-cache proxy (ETag/304) | ✅ | done — fresh/stale/miss cases, If-None-Match, 304 revalidation |
 | 3 | H1 vs H2 waterfall | ⬜ | |
 | 4 | CORS playground | ⬜ | |
 | ⭐ | Capstone: Network Inspector | ⬜ | |
