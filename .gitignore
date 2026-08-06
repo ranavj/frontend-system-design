@@ -17,6 +17,9 @@ build/
 # runtime-generated caches (Wk1 Build 2 proxy.js writes this)
 week-01-network/02-cache-proxy/cache.json
 
+# self-signed TLS certs (Wk1 Build 3 — generated locally via openssl, never commit private keys)
+week-01-network/03-h1-h2-waterfall/*.pem
+
 # os / editor
 .DS_Store
 .idea/

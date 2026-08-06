@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Build 3 · H1 vs H2 Waterfall</title>
+  <style>
+    body { font-family: monospace; padding: 20px; }
+    button { margin-right: 8px; padding: 6px 12px; }
+    #chart { margin-top: 20px; position: relative; }
+    .bar-row { display: flex; align-items: center; margin: 2px 0; height: 16px; }
+    .bar-label { width: 50px; font-size: 11px; color: #666; }
+    .bar { height: 12px; background: steelblue; border-radius: 2px; }
+    #total { margin-top: 12px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>Build 3 · H1 vs H2 Waterfall</h2>
+  <p>
+    <button onclick="run('http://localhost:8001')">Load via HTTP/1.1</button>
+    <button onclick="run('https://localhost:8002')">Load via HTTP/2</button>
+  </p>
+  <div id="chart"></div>
+  <div id="total"></div>
+
+  <script>
+    const IMAGE_COUNT = 30;
+
+    async function run(origin) {
+      const chart = document.getElementById("chart");
+      const totalEl = document.getElementById("total");
+      chart.innerHTML = "";
+      totalEl.textContent = "Loading...";
+      performance.clearResourceTimings();
+
+      const start = performance.now();
+
+      // 1) TODO: IMAGE_COUNT images ke liye fetch() calls (ya <img> elements) banao,
+      //    har ek `${origin}/img/${i}` pe point kare.
+      //    Sabko Promise.all() mein daalo taaki pata chale sab kab khatam hue.
+      //    Hint (fetch): fetch(`${origin}/img/${i}`).then(r => r.blob())
+      const promises = [];
+      for (let i = 0; i < IMAGE_COUNT; i++) {
+        promises.push(fetch(`${origin}/img/${i}`).then(r => r.blob()));
+      }
+      await Promise.all(promises);  
+      const total = performance.now() - start;
+
+      // 2) TODO: performance.getEntriesByType("resource") se saare entries lo,
+      //    origin se shuru hone waali entries filter karo (is run ki hi images).
+      //    Har entry ke liye ek bar draw karo:
+      //      - left offset = entry.startTime (px scale karo, jaise startTime * 2)
+      //      - width = entry.duration (isko bhi scale karo)
+      //    Ek div.bar-row banao har entry ke liye, usme div.bar ka style.marginLeft aur style.width set karo.
+      const entries = performance.getEntriesByType("resource").filter(entry => entry.name.startsWith(origin));
+      entries.forEach(entry => {
+        const row = document.createElement("div");
+        row.className = "bar-row";
+        const label = document.createElement("div");
+        label.className = "bar-label";
+        label.textContent = entry.name.split("/").pop();
+        const bar = document.createElement("div");
+        bar.className = "bar";
+        bar.style.marginLeft = `${(entry.startTime - start) * 2}px`;
+        bar.style.width = `${entry.duration * 2}px`;
+        row.appendChild(label);
+        row.appendChild(bar);
+        chart.appendChild(row);
+      });
+      totalEl.textContent = `Total: ${Math.round(total)} ms`;
+    }
+  </script> 
+</body>
+</html>

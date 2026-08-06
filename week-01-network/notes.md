@@ -81,9 +81,9 @@ TCP/SOCKET ← asli taar, bytes ka aana-jaana (rasta)
 - **Insight:** 304 ka poora point bandwidth bachana hai — content change nahi hua to server poora body dobara nahi bhejta, sirf ek chhota status code. Isliye bade ya rarely-changing resources (images, config, lists) ke liye ye bahut effective optimization hai — network call to phir bhi hoti hai (revalidate ke liye), par payload bahut chhota.
 
 ## Build 3 — H1 vs H2 waterfall
-- **Kya seekha:**
-- **React/JS se juda:**
-- **Insight:**
+- **Kya seekha:** HTTP/2 sirf TLS ke andar negotiate hota hai (ALPN) — isliye localhost pe H2 test karne ke liye bhi self-signed cert (`openssl`) chahiye tha. Do dual-mode servers banaye (`http.createServer` vs `http2.createSecureServer`), 30 images 150ms artificial delay ke saath serve kiye taaki localhost pe bhi waterfall farak dikhe. Client side `fetch().then(r => r.blob())` se 30 parallel requests fire kiye, `Promise.all` se sabka wait kiya, aur `performance.getEntriesByType("resource")` se per-image timing nikaal ke waterfall bars banaye.
+- **React/JS se juda:** Poori exercise ne JS ka **argument-evaluation order** deeply clear kiya — `fetch(url)` turant call hoti hai (function call as argument → pehle chalta hai), lekin `.then(r => r.blob())` ya `.filter(entry => ...)` mein diya gaya arrow function sirf **create** hota hai, **call baad mein, khud filter/promise-chain karta hai**. `setTimeout` bhi wahi pattern — registration turant, callback baad mein, aur `return` ke baad ki lines kabhi reach hi nahi hoti. Ye exact wahi mental model hai jo React event handlers, `useEffect` cleanup, aur `.map()`/`.filter()` render logic mein roz use hota hai.
+- **Insight:** Real numbers se HOL blocking dikha — H1 mein 30 images 5 staircase-batches (6 per wave, 6-connection-per-origin limit) mein gayi, total **782ms**; H2 mein sab ek wave mein parallel gayi, total **163ms** — **~4.8x faster**, sirf protocol badalne se, koi aur optimization ke bina.
 
 ## Build 4 — CORS playground
 - **Kya seekha:**
