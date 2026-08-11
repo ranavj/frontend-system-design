@@ -86,9 +86,12 @@ TCP/SOCKET ← asli taar, bytes ka aana-jaana (rasta)
 - **Insight:** Real numbers se HOL blocking dikha — H1 mein 30 images 5 staircase-batches (6 per wave, 6-connection-per-origin limit) mein gayi, total **782ms**; H2 mein sab ek wave mein parallel gayi, total **163ms** — **~4.8x faster**, sirf protocol badalne se, koi aur optimization ke bina.
 
 ## Build 4 — CORS playground
-- **Kya seekha:**
-- **React/JS se juda:**
-- **Insight:**
+
+![CORS: simple vs preflighted request](diagrams/cors-preflight.svg)
+
+- **Kya seekha:** **Origin = protocol + host + port** — teeno match karein tabhi same-origin. `localhost:5500` (client) aur `localhost:8000` (server) same machine, same banda, phir bhi **alag origin**, kyunki port alag hai. Browser ownership nahi dekhta, sirf URL string compare karta hai. Cross-origin response tabhi milta hai jab server `Access-Control-Allow-Origin` bheje. Do tarah ki requests hoti hain: **simple** (GET, koi custom header nahi) → seedha 1 call; **non-simple** (PUT/DELETE/PATCH ya custom header jaise `X-Playground`) → browser **khud** pehle ek `OPTIONS` **preflight** bhejta hai ("ye method/header allowed hai?"), aur "haan" milne par hi asli request jaati hai = **2 calls**. Whitelist dono ko chahiye; preflight sirf non-simple pe extra step hai.
+- **React/JS se juda:** Yehi wo classic "blocked by CORS policy" error hai jo Angular `localhost:4200` / React `localhost:3000` se backend call karte waqt roz milta hai — aur fix **hamesha backend pe** hota hai (client kuch bhi kar le, browser uski nahi sunega, warna security ka point hi khatam). Frontend-side ka asli tool hai **dev proxy** (Angular `proxy.conf.json`, Vite `server.proxy`): request `/api/...` yaani same-origin lagti hai, aur dev server (jo browser nahi hai, isliye usme CORS check hota hi nahi) usse backend pe forward kar deta hai. Ek aur trap: agar backend 500 phenke to error response pe CORS header nahi lagta → browser "CORS error" dikhata hai jabki asli problem crash hai — isliye CORS error pe hamesha Network tab mein **actual status code** dekho.
+- **Insight:** **CORS server ki security nahi hai — wo user ke browser ka seat-belt hai.** `curl`/Postman mein CORS ka wajood hi nahi (isiliye BE dev bolta hai "Postman mein to 200 aa raha" — wo sach bol raha hai). Server ko bachane wali cheezein alag hain: signed **bearer token** (authentication — forge nahi ho sakta), per-request **ownership/role check** (authorization — IDOR se bachne ke liye), input validation, rate limiting. Aur isi wajah se **frontend mein koi secret nahi rakha ja sakta** — `.env`/`environment.prod.ts` build ke time literally string-replace ho ke bundle mein plain text baith jaate hain (`npm run build && grep -r "key" dist/` se khud dekh lo). Secret keys sirf backend pe; frontend → apna backend → 3rd party (BFF pattern).
 
 ---
 

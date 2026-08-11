@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 720" font-family="-apple-system,Segoe UI,Roboto,sans-serif">
+  <style>
+    .title{font-size:22px;font-weight:800;fill:#131a24}
+    .sub{font-size:13px;fill:#64748b}
+    .panel-label{font-size:15px;font-weight:800}
+    .lane{font-size:12.5px;font-weight:700;fill:#fff}
+    .msg{font-size:12px;font-weight:600;fill:#1e293b}
+    .msg-sm{font-size:10.5px;fill:#64748b}
+    .note{font-size:11.5px;fill:#3c4859}
+    .badge{font-size:11px;font-weight:700}
+  </style>
+
+  <rect x="0" y="0" width="940" height="720" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#15803d"/>
+    </marker>
+    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#c2410c"/>
+    </marker>
+  </defs>
+
+  <text x="30" y="36" class="title">CORS — simple request vs preflighted request</text>
+  <text x="30" y="58" class="sub">Client = http://localhost:5500 · Server = http://localhost:8000 → do alag origins. Browser beech mein "guard" hai.</text>
+
+  <!-- ================= PANEL 1 — SIMPLE ================= -->
+  <rect x="20" y="76" width="900" height="238" rx="10" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="40" y="102" class="panel-label" fill="#15803d">① Simple GET — 1 network call</text>
+  <text x="330" y="102" class="msg-sm">GET + koi custom header nahi → browser bina poochhe bhej deta hai</text>
+
+  <!-- lanes -->
+  <rect x="60" y="116" width="140" height="26" rx="5" fill="#334155"/>
+  <text x="130" y="134" text-anchor="middle" class="lane">Tumhara JS</text>
+  <rect x="400" y="116" width="140" height="26" rx="5" fill="#2563eb"/>
+  <text x="470" y="134" text-anchor="middle" class="lane">Browser (guard)</text>
+  <rect x="740" y="116" width="140" height="26" rx="5" fill="#7c3aed"/>
+  <text x="810" y="134" text-anchor="middle" class="lane">Server :8000</text>
+
+  <line x1="130" y1="142" x2="130" y2="300" stroke="#cbd5e1" stroke-dasharray="4 4"/>
+  <line x1="470" y1="142" x2="470" y2="300" stroke="#cbd5e1" stroke-dasharray="4 4"/>
+  <line x1="810" y1="142" x2="810" y2="300" stroke="#cbd5e1" stroke-dasharray="4 4"/>
+
+  <!-- 1: JS -> browser -->
+  <text x="300" y="168" text-anchor="middle" class="msg">fetch("/cors/simple")</text>
+  <line x1="130" y1="176" x2="466" y2="176" stroke="#334155" stroke-width="1.6" marker-end="url(#a-blue)"/>
+
+  <!-- 2: browser -> server -->
+  <text x="640" y="202" text-anchor="middle" class="msg">GET /cors/simple</text>
+  <line x1="470" y1="210" x2="806" y2="210" stroke="#2563eb" stroke-width="1.6" marker-end="url(#a-blue)"/>
+
+  <!-- 3: server -> browser -->
+  <text x="640" y="238" text-anchor="middle" class="msg">200 OK</text>
+  <text x="640" y="252" text-anchor="middle" class="msg-sm">Access-Control-Allow-Origin: http://localhost:5500  ← "stamp"</text>
+  <line x1="810" y1="260" x2="474" y2="260" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#a-blue)"/>
+
+  <!-- 4: browser -> JS -->
+  <text x="300" y="286" text-anchor="middle" class="msg" fill="#15803d">✅ stamp match → JS ko response mila</text>
+  <line x1="470" y1="294" x2="134" y2="294" stroke="#15803d" stroke-width="1.6" marker-end="url(#a-green)"/>
+
+  <!-- ================= PANEL 2 — PREFLIGHT ================= -->
+  <rect x="20" y="330" width="900" height="336" rx="10" fill="#fff7ed" stroke="#fed7aa"/>
+  <text x="40" y="356" class="panel-label" fill="#c2410c">② PUT + custom header — 2 network calls</text>
+  <text x="415" y="356" class="msg-sm">"non-simple" → browser pehle permission poochhta hai</text>
+
+  <!-- lanes -->
+  <rect x="60" y="370" width="140" height="26" rx="5" fill="#334155"/>
+  <text x="130" y="388" text-anchor="middle" class="lane">Tumhara JS</text>
+  <rect x="400" y="370" width="140" height="26" rx="5" fill="#2563eb"/>
+  <text x="470" y="388" text-anchor="middle" class="lane">Browser (guard)</text>
+  <rect x="740" y="370" width="140" height="26" rx="5" fill="#7c3aed"/>
+  <text x="810" y="388" text-anchor="middle" class="lane">Server :8000</text>
+
+  <line x1="130" y1="396" x2="130" y2="620" stroke="#cbd5e1" stroke-dasharray="4 4"/>
+  <line x1="470" y1="396" x2="470" y2="620" stroke="#cbd5e1" stroke-dasharray="4 4"/>
+  <line x1="810" y1="396" x2="810" y2="620" stroke="#cbd5e1" stroke-dasharray="4 4"/>
+
+  <!-- 1: JS -> browser -->
+  <text x="300" y="418" text-anchor="middle" class="msg">fetch("/cors/preflight", { method: "PUT", X-Playground })</text>
+  <line x1="130" y1="426" x2="466" y2="426" stroke="#334155" stroke-width="1.6" marker-end="url(#a-blue)"/>
+
+  <!-- preflight round trip block -->
+  <rect x="490" y="436" width="410" height="86" rx="8" fill="#ffedd5" stroke="#fdba74"/>
+  <text x="500" y="453" class="badge" fill="#c2410c">CALL 1 — PREFLIGHT (browser khud bhejta hai, tumne likha hi nahi)</text>
+
+  <text x="640" y="472" text-anchor="middle" class="msg">OPTIONS /cors/preflight</text>
+  <text x="640" y="485" text-anchor="middle" class="msg-sm">"PUT allowed? X-Playground allowed?"</text>
+  <line x1="470" y1="492" x2="806" y2="492" stroke="#c2410c" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#a-orange)"/>
+
+  <text x="640" y="509" text-anchor="middle" class="msg-sm">200 · Allow-Methods: GET, PUT · Allow-Headers: X-Playground → "haan"</text>
+  <line x1="810" y1="516" x2="474" y2="516" stroke="#c2410c" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#a-orange)"/>
+
+  <!-- real request block -->
+  <rect x="490" y="530" width="410" height="66" rx="8" fill="#ede9fe" stroke="#c4b5fd"/>
+  <text x="500" y="547" class="badge" fill="#6d28d9">CALL 2 — ASLI REQUEST (permission mila, tabhi jaati hai)</text>
+
+  <text x="640" y="566" text-anchor="middle" class="msg">PUT /cors/preflight  +  X-Playground: hello</text>
+  <line x1="470" y1="573" x2="806" y2="573" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#a-blue)"/>
+
+  <text x="640" y="590" text-anchor="middle" class="msg-sm">200 · {"received": "hello"}</text>
+  <line x1="810" y1="596" x2="474" y2="596" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#a-blue)"/>
+
+  <!-- browser -> JS -->
+  <text x="300" y="608" text-anchor="middle" class="msg" fill="#15803d">✅ JS ko response mila</text>
+  <line x1="470" y1="616" x2="134" y2="616" stroke="#15803d" stroke-width="1.6" marker-end="url(#a-green)"/>
+
+  <!-- fail note -->
+  <rect x="40" y="630" width="860" height="24" rx="6" fill="#fee2e2" stroke="#fca5a5"/>
+  <text x="52" y="646" class="note" fill="#b91c1c">❌ Agar preflight mein server "na" bolta (origin/method/header allowed nahi) → CALL 2 jaati hi nahi. JS ko seedha TypeError: Failed to fetch.</text>
+
+  <!-- footer -->
+  <text x="30" y="692" class="note" fill="#0f172a" font-weight="700">Yaad rakho:</text>
+  <text x="105" y="692" class="note">server dono case mein apna kaam kar deta hai — rokne wala hamesha browser hai. curl se koi CORS check hota hi nahi.</text>
+</svg>

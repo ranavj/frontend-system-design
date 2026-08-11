@@ -4,7 +4,7 @@
 > Sync partners: [`rag-mastery/PROGRESS.md`](../rag-mastery/PROGRESS.md) · [`python-foundations/PROGRESS.md`](../python-foundations/PROGRESS.md)
 > Live checkbox tracker: [`artifact/roadmap-tracker.html`](artifact/roadmap-tracker.html)
 
-**Status:** 🟢 Week 1 · Build 3 (H1 vs H2 waterfall) — DONE ✅ · Build 4 (CORS playground) next
+**Status:** 🟢 Week 1 · Build 4 (CORS playground) — DONE ✅ · Capstone (Network Inspector) next
 
 ---
 
@@ -14,6 +14,7 @@
 - **Wk1 · Build 1** — Request timing logger ✅ (DNS/TCP/TLS/TTFB/download breakdown + http handling + bottleneck highlight)
 - **Wk1 · Build 2** — Conditional-cache proxy ✅ (fresh/stale/miss handling, ETag + If-None-Match, 304 revalidation)
 - **Wk1 · Build 3** — H1 vs H2 waterfall ✅ (self-signed cert + dual-mode server, Resource Timing waterfall, measured 782ms vs 163ms — 4.8x)
+- **Wk1 · Build 4** — CORS playground ✅ (simple vs preflighted request, live OPTIONS in DevTools, origin toggle → blocked, CORS ≠ server security)
 
 ---
 
@@ -25,7 +26,7 @@
 | 1 | Request timing logger (DNS/TCP/TLS/TTFB) | ✅ | done — 5-stage breakdown, http handling, bottleneck highlight |
 | 2 | Conditional-cache proxy (ETag/304) | ✅ | done — fresh/stale/miss cases, If-None-Match, 304 revalidation |
 | 3 | H1 vs H2 waterfall | ✅ | done — self-signed cert, dual-mode server, waterfall via Resource Timing API, 782ms vs 163ms |
-| 4 | CORS playground | ⬜ | |
+| 4 | CORS playground | ✅ | done — simple vs preflight (OPTIONS), origin/method/header toggle, browser-side enforcement |
 | ⭐ | Capstone: Network Inspector | ⬜ | |
 
 ### Week 2 · The Browser

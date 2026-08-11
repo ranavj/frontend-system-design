@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Build 4 · CORS Playground</title>
+  <style>
+    body { font-family: monospace; padding: 20px; }
+    button { margin-right: 8px; padding: 6px 12px; }
+    #log { margin-top: 16px; background: #f4f4f4; padding: 12px; min-height: 100px; white-space: pre-wrap; }
+    .hint { color: #666; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <h2>Build 4 · CORS Playground</h2>
+  <p class="hint">
+    Is page ko <code>http://localhost:5500</code> se serve karo (README dekho), server hai
+    <code>http://localhost:8000</code> pe — do alag origins, isliye har fetch neeche
+    genuinely cross-origin hai. DevTools → Network tab khula rakho.
+  </p>
+  <p>
+    <button onclick="simpleGet()">Simple GET</button>
+    <button onclick="preflightPut()">PUT with custom header (preflight)</button>
+    <button onclick="clearLog()">Clear log</button>
+  </p>
+  <div id="log"></div>
+
+  <script>
+    const SERVER = "http://localhost:8000";
+    const logEl = document.getElementById("log");
+    const log = (msg) => { logEl.textContent += msg + "\n"; };
+    const clearLog = () => { logEl.textContent = ""; };
+
+    async function simpleGet() {
+      // TODO: fetch(`${SERVER}/cors/simple`) karo, .json() se body nikaalo, log() se dikhao.
+      // try/catch mein rakho — CORS block hone pe fetch() khud reject ho jaata hai (TypeError).
+      // Network tab mein is request se pehle OPTIONS NAHI aani chahiye — ye "simple" request hai.
+      try {
+        const response = await fetch(`${SERVER}/cors/simple`);
+        const data = await response.json();
+        log(JSON.stringify(data));
+      } catch (error) {
+        log(`Error: ${error}`);
+      }
+    }
+
+    async function preflightPut() {
+      // TODO: fetch(`${SERVER}/cors/preflight`, {
+      //   method: "PUT",
+      //   headers: { "X-Playground": "hello", "Content-Type": "application/json" },
+      //   body: JSON.stringify({}),
+      // }) karo, .json() se body nikaalo, log() se dikhao.
+      // Network tab mein is call se PEHLE ek alag OPTIONS request dikhni chahiye (preflight) —
+      // usko click karke Request/Response headers dekho.
+      try {
+        const response = await fetch(`${SERVER}/cors/preflight`, {
+          method: "PUT",
+          headers: { "X-Playground": "hello", "Content-Type": "application/json" },
+          body: JSON.stringify({}),
+        });
+        const data = await response.json();
+        log(JSON.stringify(data));
+      } catch (error) {
+        log(`Error: ${error}`);
+      }
+    }
+  </script>
+</body>
+</html>

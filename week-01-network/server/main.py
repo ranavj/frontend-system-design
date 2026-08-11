@@ -25,12 +25,18 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-# Browser se bhi test kar sako isliye CORS khula rakha hai (Build 4 mein isi cheez ko deep dive karenge).
+# ---- Build 4 · CORS playground config ----
+# Ye list badal ke dekho — uvicorn --reload khud restart kar dega, browser mein dobara
+# fetch try karo. README ("Ab toggle karo") mein exact steps hain.
+CORS_ALLOWED_ORIGINS = ["http://localhost:5500"]  # client.html isi port pe serve hoga
+CORS_ALLOWED_METHODS = ["GET", "PUT"]
+CORS_ALLOWED_HEADERS = ["X-Playground", "Content-Type"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=CORS_ALLOWED_ORIGINS,
+    allow_methods=CORS_ALLOWED_METHODS,
+    allow_headers=CORS_ALLOWED_HEADERS,
 )
 
 # In-memory "resource" — origin ka state. Real server mein ye DB/file hota.
@@ -68,3 +74,32 @@ def update_resource(body: UpdateBody):
     state["content"] = body.content
     state["updated_at"] = time.time()
     return {"ok": True, "content": state["content"], "etag": compute_etag(state["content"])}
+
+
+# ---- Build 4 · CORS playground endpoints ----
+# ⚠️ Ye ek GUIDE hai — khud type/complete karo. Har TODO tumhara kaam hai.
+
+@app.get("/cors/simple")
+def cors_simple():
+    """
+    'Simple request' — GET, koi custom header nahi, isliye browser preflight (OPTIONS)
+    bhejta hi nahi, seedha request jaata hai. CORSMiddleware response mein khud
+    Access-Control-Allow-Origin add karta hai (agar origin CORS_ALLOWED_ORIGINS mein hai).
+    TODO: bas ek dict return karo, jaise {"message": "simple GET worked"}.
+    """
+    ...  # TODO
+    return {"message": "simple GET worked"}
+
+
+@app.put("/cors/preflight")
+def cors_preflight_route(request: Request):
+    """
+    Custom header (X-Playground) ke saath PUT — 'non-simple' request. Browser is exact
+    URL pe pehle khud ek OPTIONS (preflight) bhejta hai — tumhe OPTIONS handle nahi karna,
+    CORSMiddleware woh khud karta hai (CORS_ALLOWED_METHODS/HEADERS check karke). Agar
+    preflight pass ho gaya, tabhi ye function call hota hai.
+    TODO: request.headers se "x-playground" ki value nikaalo (headers lowercase hote hain)
+    aur usse echo karo, jaise {"received": <value>}.
+    """
+    ...  # TODO
+    return {"received": request.headers.get("x-playground")}
