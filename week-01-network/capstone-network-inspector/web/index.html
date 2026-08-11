@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>⭐ Network Inspector</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>🔎 Network Inspector</h1>
+      <p class="sub">
+        Koi bhi URL daalo → timing waterfall + cache/headers breakdown.
+        Backend <code>:8100</code> pe chal raha hona chahiye.
+      </p>
+
+      <form id="form">
+        <input id="url" type="text" value="https://example.com" spellcheck="false" />
+        <button type="submit">Inspect</button>
+      </form>
+
+      <div id="status"></div>
+      <div id="result" hidden>
+        <section id="waterfall"></section>
+        <section id="cache"></section>
+        <section id="headers"></section>
+      </div>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
