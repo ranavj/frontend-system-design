@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Build 6 · Debounce & Throttle</title>
+  <style>
+    body { font-family: monospace; padding: 20px; }
+    #playground {
+      height: 150px;
+      background: #e5e7eb;
+      margin: 12px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+    .counts p { margin: 6px 0; }
+    .counts span { display: inline-block; width: 60px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>Build 6 · Debounce & Throttle</h2>
+  <p>Neeche wale box mein mouse move karo — teeno counters live update honge.</p>
+  <div id="playground">yahan mouse move karo</div>
+  <div class="counts">
+    <p>Raw events: <span id="rawCount">0</span></p>
+    <p>Debounced calls (500ms): <span id="debouncedCount">0</span></p>
+    <p>Throttled calls (500ms): <span id="throttledCount">0</span></p>
+  </div>
+
+  <script>
+    // TODO 1: debounce(fn, delay) likho.
+    // Hint: closure mein ek `timeoutId` variable rakho (function ke bahar, andar hi —
+    // taaki wrapped function ke har call ke beech "yaad" rahe).
+    //   return (...args) => {
+    //     clearTimeout(timeoutId);              // purana pending call cancel karo
+    //     timeoutId = setTimeout(() => fn(...args), delay);  // naya timer lagao
+    //   };
+    function debounce(fn, delay) {
+      // TODO
+      let timeoutId ;
+      return (...args) => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn(...args), delay)
+      }
+    }
+
+    // TODO 2: throttle(fn, interval) likho — "leading edge" version (pehla call turant
+    // chalta hai, uske baad `interval` ms tak sab ignore hote hain).
+    // Hint: closure mein ek `lastCallTime` variable rakho (shuru mein 0).
+    //   return (...args) => {
+    //     const now = Date.now();
+    //     if (now - lastCallTime >= interval) {
+    //       lastCallTime = now;
+    //       fn(...args);
+    //     }
+    //   };
+    function throttle(fn, interval) {
+      let lastCallTime = 0;
+      return (...args) => {
+        const now = Date.now()
+        if(now - lastCallTime >= interval){
+          lastCallTime = now;
+          fn(...args)
+        }
+      }
+    }
+
+    // --- Poora demo-wiring diya hua hai, isko chhedne ki zarurat nahi ---
+
+    const playground = document.getElementById("playground");
+
+    let rawCount = 0;
+    playground.addEventListener("mousemove", () => {
+      rawCount++;
+      document.getElementById("rawCount").textContent = rawCount;
+    });
+
+    let debouncedCount = 0;
+    const debouncedHandler = debounce(() => {
+      debouncedCount++;
+      document.getElementById("debouncedCount").textContent = debouncedCount;
+    }, 500);
+    playground.addEventListener("mousemove", debouncedHandler);
+
+    let throttledCount = 0;
+    const throttledHandler = throttle(() => {
+      throttledCount++;
+      document.getElementById("throttledCount").textContent = throttledCount;
+    }, 500);
+    playground.addEventListener("mousemove", throttledHandler);
+  </script>
+</body>
+</html>

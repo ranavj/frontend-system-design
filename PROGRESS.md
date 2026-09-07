@@ -4,7 +4,7 @@
 > Sync partners: [`rag-mastery/PROGRESS.md`](../rag-mastery/PROGRESS.md) · [`python-foundations/PROGRESS.md`](../python-foundations/PROGRESS.md)
 > Live checkbox tracker: [`artifact/roadmap-tracker.html`](artifact/roadmap-tracker.html)
 
-**Status:** 🟢 Week 1 · Build 4 (CORS playground) — DONE ✅ · Capstone (Network Inspector) next
+**Status:** 🟢 Wk2 · Build 6 (debounce/throttle) — DONE ✅ · Build 7 (Reflow vs repaint) next
 
 ---
 
@@ -15,6 +15,9 @@
 - **Wk1 · Build 2** — Conditional-cache proxy ✅ (fresh/stale/miss handling, ETag + If-None-Match, 304 revalidation)
 - **Wk1 · Build 3** — H1 vs H2 waterfall ✅ (self-signed cert + dual-mode server, Resource Timing waterfall, measured 782ms vs 163ms — 4.8x)
 - **Wk1 · Build 4** — CORS playground ✅ (simple vs preflighted request, live OPTIONS in DevTools, origin toggle → blocked, CORS ≠ server security)
+- **Wk1 · Capstone** — skipped, jaan-boojh kar. Instead ek bada standalone project (`/Users/vijayrana/api-health-monitor`) banaya jo Build 1's timing logic ko FastAPI backend + Preact dashboard + SSE tak le gaya — Network Inspector se kaafi zyada advanced, isी concept ko cover karta hai.
+- **Wk2 · Build 5** — Event-loop visualizer ✅ (sync/`Promise.then`/`queueMicrotask`/`setTimeout` ka color-coded live order — guess-first-then-verify tareeke se). Concept `api-health-monitor` session ki deep Promise/generator/async-await dive se already solid tha, isliye implementation seedha ban gaya.
+- **Wk2 · Build 6** — debounce & throttle ✅ scratch se (closure-based: `timeoutId` for debounce, `lastCallTime` for throttle), live mousemove demo (raw vs debounced vs throttled counters). Dono functions Node mein rapid-fire simulation se independently verified — debounce ne 10 rapid calls ko 1 mein compress kiya, throttle ne 20 calls ko regular-rate 5 mein.
 
 ---
 
@@ -27,13 +30,13 @@
 | 2 | Conditional-cache proxy (ETag/304) | ✅ | done — fresh/stale/miss cases, If-None-Match, 304 revalidation |
 | 3 | H1 vs H2 waterfall | ✅ | done — self-signed cert, dual-mode server, waterfall via Resource Timing API, 782ms vs 163ms |
 | 4 | CORS playground | ✅ | done — simple vs preflight (OPTIONS), origin/method/header toggle, browser-side enforcement |
-| ⭐ | Capstone: Network Inspector | ⬜ | |
+| ⭐ | Capstone: Network Inspector | ⏭️ | skipped — superseded by `api-health-monitor` project |
 
 ### Week 2 · The Browser
 | # | Build | Status | Notes |
 |---|-------|--------|-------|
-| 5 | Event-loop visualizer | ⬜ | |
-| 6 | debounce & throttle | ⬜ | |
+| 5 | Event-loop visualizer | ✅ | sync/microtask(Promise.then, queueMicrotask)/macrotask(setTimeout) order verified — guess matched actual exactly |
+| 6 | debounce & throttle | ✅ | dono scratch se, live mousemove demo — Node mein rate/timing independently verified |
 | 7 | Reflow vs repaint meter | ⬜ | |
 | 8 | CRP demo | ⬜ | |
 

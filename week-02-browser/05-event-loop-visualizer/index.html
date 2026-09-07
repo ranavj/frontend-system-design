@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Build 5 · Event-Loop Visualizer</title>
+  <style>
+    body { font-family: monospace; padding: 20px; }
+    button { padding: 8px 16px; margin-bottom: 16px; }
+    #log { display: flex; flex-direction: column; gap: 4px; }
+    .line { padding: 4px 8px; border-radius: 4px; }
+    .sync { background: #dbeafe; color: #1e3a8a; }       /* sync = blue */
+    .microtask { background: #dcfce7; color: #14532d; }   /* microtask = green */
+    .macrotask { background: #ffedd5; color: #7c2d12; }   /* macrotask = orange */
+  </style>
+</head>
+<body>
+  <h2>Build 5 · Event-Loop Visualizer</h2>
+  <p>Neeche button dabane se PEHLE, guess karo kaunsa order aayega — phir chalake check karo.</p>
+  <button onclick="run()">Run</button>
+  <div id="log"></div>
+
+  <script>
+    // Poora likha hai — DOM mein ek colored line add karta hai.
+    // kind: "sync" | "microtask" | "macrotask"
+    function log(text, kind) {
+      const div = document.createElement("div");
+      div.className = "line " + kind;
+      div.textContent = text;
+      document.getElementById("log").appendChild(div);
+    }
+
+    function run() {
+      document.getElementById("log").innerHTML = "";
+
+      // Guess (expected order):
+      //   1. sync: start
+      //   2. sync: end
+      //   3. microtask: promise.then
+      //   4. microtask: queueMicrotask
+      //   5. macrotask: setTimeout
+
+      log("start", "sync");
+
+      setTimeout(() => log("setTimeout", "macrotask"), 0);
+
+      Promise.resolve().then(() => log("promise.then", "microtask"));
+
+      queueMicrotask(() => log("queueMicrotask", "microtask"));
+
+      log("end", "sync");
+    }
+  </script>
+</body>
+</html>
