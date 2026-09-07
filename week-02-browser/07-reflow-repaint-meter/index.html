@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Build 7 · Reflow vs Repaint Meter</title>
+  <style>
+    body {
+      font-family: monospace;
+      padding: 20px;
+    }
+
+    #boxes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px;
+      width: 600px;
+      margin: 12px 0;
+      max-height: 300px;
+      overflow: hidden;
+    }
+
+    .box {
+      width: 20px;
+      height: 20px;
+      background: steelblue;
+    }
+
+    button {
+      padding: 8px 16px;
+      margin-right: 8px;
+    }
+
+    #result {
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Build 7 · Reflow vs Repaint Meter</h2>
+  <p>500 boxes neeche hain. Dono buttons dabake dekho — same kaam, alag pattern, alag time.</p>
+
+  <button onclick="runBad()">Bad: Interleaved (thrashing)</button>
+  <button onclick="runGood()">Good: Batched</button>
+  <p>Time: <span id="result">—</span></p>
+
+  <div id="boxes"></div>
+
+  <script>
+    const NUM_BOXES = 500;
+
+    // Poora diya hua hai — 500 boxes generate karta hai.
+    const boxesContainer = document.getElementById("boxes");
+    for (let i = 0; i < NUM_BOXES; i++) {
+      const box = document.createElement("div");
+      box.className = "box";
+      boxesContainer.appendChild(box);
+    }
+
+    function showResult(label, ms) {
+      document.getElementById("result").textContent = `${label}: ${ms.toFixed(2)} ms`;
+    }
+
+    // TODO 1: BAD version — read+write mix, har box ke liye TURANT.
+    // Hint:
+    //   const boxes = document.querySelectorAll(".box");
+    //   const start = performance.now();
+    //   boxes.forEach((box) => {
+    //     const currentWidth = box.offsetWidth;   // READ — forces reflow (agar pending write hai)
+    //     box.style.width = (currentWidth + 1) + "px";   // WRITE
+    //   });
+    //   const end = performance.now();
+    //   showResult("Bad (thrashing)", end - start);
+    function runBad() {
+      const boxes = document.querySelectorAll(".box");
+      const start = performance.now();
+      boxes.forEach((box) => {
+        const currentWidth = box.offsetWidth;   // READ — forces reflow (agar pending write hai)
+        box.style.width = (currentWidth + 1) + "px";   // WRITE
+      });
+      const end = performance.now();
+      showResult("Bad (thrashing)", end - start);
+    }
+
+    // TODO 2: GOOD version — pehle SAARE reads, phir SAARE writes (do alag loops).
+    // Hint:
+    //   const boxes = document.querySelectorAll(".box");
+    //   const start = performance.now();
+    //   const widths = [];
+    //   boxes.forEach((box) => widths.push(box.offsetWidth));   // Loop 1: sirf READS
+    //   boxes.forEach((box, i) => { box.style.width = (widths[i] + 1) + "px"; });  // Loop 2: sirf WRITES
+    //   const end = performance.now();
+    //   showResult("Good (batched)", end - start);
+    function runGood() {
+      const boxes = document.querySelectorAll(".box");
+      const start = performance.now();
+      const widths = [];
+      boxes.forEach((box) => widths.push(box.offsetWidth));   // Loop 1: sirf READS
+      boxes.forEach((box, i) => { box.style.width = (widths[i] + 1) + "px"; });  // Loop 2: sirf WRITES
+      const end = performance.now();
+      showResult("Good (batched)", end - start);
+    }
+  </script>
+</body>
+
+</html>

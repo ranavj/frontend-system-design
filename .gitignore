@@ -25,3 +25,5 @@ week-01-network/03-h1-h2-waterfall/*.pem
 .idea/
 .vscode/
 *.log
+
+deepDive.js
