@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Bonus · Fiber-style Chunking + Virtualization + FPS Meter</title>
+  <style>
+    body { font-family: monospace; padding: 20px; }
+    #fps-meter {
+      font-size: 18px;
+      font-weight: bold;
+      padding: 10px;
+      background: #f3f4f6;
+      margin-bottom: 12px;
+    }
+    #fps-meter.frozen { background: #fee2e2; color: #991b1b; }
+    button { padding: 8px 16px; margin-right: 8px; }
+    #list-container {
+      height: 400px;
+      width: 500px;
+      overflow-y: auto;
+      position: relative;
+      border: 1px solid #999;
+      margin-top: 16px;
+    }
+    #list-spacer { position: relative; }
+    .row {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 30px;
+      box-sizing: border-box;
+      padding: 4px 8px;
+      border-bottom: 1px solid #eee;
+    }
+    .row:nth-child(odd) { background: #fafafa; }
+  </style>
+</head>
+<body>
+  <h2>Bonus · Fiber-style Chunking + Virtualization + FPS Meter</h2>
+
+  <div id="fps-meter">FPS: -- | Worst frame gap since reset: -- ms</div>
+
+  <button onclick="runBlocking()">Blocking (all at once)</button>
+  <button onclick="runChunkedButton()">Chunked (via generator)</button>
+  <p id="work-status">Status: idle</p>
+
+  <p>Neeche 10,000 rows hain — scroll karo, DOM mein kitni rows hain (inspect karke) dekho.</p>
+  <div id="list-container">
+    <div id="list-spacer"></div>
+  </div>
+
+  <script>
+    // ============================================================
+    // FPS METER — poora diya hua hai. requestAnimationFrame se har
+    // frame ka gap measure karta hai. Agar main thread block hui,
+    // agla rAF callback tab tak nahi chalega jab tak block khatam
+    // na ho — isliye "worst gap" turant dikha dega block kitna bada tha.
+    // ============================================================
+    let lastFrameTime = performance.now();
+    let worstGap = 0;
+
+    function fpsTick(now) {
+      const gap = now - lastFrameTime;
+      lastFrameTime = now;
+      worstGap = Math.max(worstGap, gap);
+      const fps = Math.round(1000 / gap);
+      const meter = document.getElementById("fps-meter");
+      meter.textContent = `FPS: ${fps} | Worst frame gap since reset: ${worstGap.toFixed(1)} ms`;
+      meter.className = worstGap > 100 ? "frozen" : "";
+      requestAnimationFrame(fpsTick);
+    }
+    requestAnimationFrame(fpsTick);
+
+    function resetMeter() {
+      worstGap = 0;
+    }
+
+    // ============================================================
+    // VIRTUALIZATION — data + constants diye hue hain.
+    // ============================================================
+    const TOTAL_ROWS = 10000;
+    const ROW_HEIGHT = 30;
+    const VISIBLE_BUFFER = 3; // extra rows upar-neeche, taaki scroll pe gap na dikhe
+
+    document.getElementById("list-spacer").style.height = TOTAL_ROWS * ROW_HEIGHT + "px";
+
+    // TODO 1 — Virtualization scroll-math.
+    // Har scroll pe ye function chalega. Kaam:
+    //   1. scrollTop = list-container ka scrollTop padho
+    //   2. startIndex = Math.floor(scrollTop / ROW_HEIGHT) - VISIBLE_BUFFER (0 se kam na ho)
+    //   3. visibleCount = Math.ceil(container ki height / ROW_HEIGHT) + VISIBLE_BUFFER * 2
+    //   4. endIndex = Math.min(TOTAL_ROWS, startIndex + visibleCount)
+    //   5. list-spacer ke andar ka HTML clear karo, phir startIndex se endIndex tak,
+    //      har row ke liye ek <div class="row"> banao:
+    //        - textContent = "Row #" + i
+    //        - style.top = (i * ROW_HEIGHT) + "px"   ← YAHI hai jo "virtual" position deta hai
+    //      real DOM mein sirf itni hi rows hongi, chahe TOTAL_ROWS 10000 ho.
+    function updateVisibleRows() {
+      const container = document.getElementById("list-container");
+      const spacer = document.getElementById("list-spacer");
+      const scrollTop = container.scrollTop;
+      const startIndex = Math.max(0, Math.floor(scrollTop / ROW_HEIGHT) - VISIBLE_BUFFER);
+      const visibleCount = Math.ceil(container.clientHeight / ROW_HEIGHT) + VISIBLE_BUFFER * 2;
+      const endIndex = Math.min(TOTAL_ROWS, startIndex + visibleCount);
+
+      spacer.innerHTML = "";
+      for (let i = startIndex; i < endIndex; i++) {
+        const row = document.createElement("div");
+        row.className = "row";
+        row.textContent = "Row #" + i;
+        row.style.top = (i * ROW_HEIGHT) + "px";
+        spacer.appendChild(row);
+      }
+    }
+
+    document.getElementById("list-container").addEventListener("scroll", updateVisibleRows);
+    updateVisibleRows(); // pehli baar, page load hote hi
+
+    // ============================================================
+    // HEAVY WORK — "fake" bhaari kaam, poora diya hua hai.
+    //
+    // TARGET_MS-based design: fixed ITERATION COUNT guess karne ki jagah (jo har
+    // machine pe alag speed se chalta — fast CPU pe milliseconds mein khatam ho
+    // jaata, slow CPU pe zyada der), hum CLOCK CHECK karte hain: "jab tak
+    // TARGET_MS poore na ho jaayein, kaam karte raho". Isse demo HAMESHA ~5
+    // second ka rahega, chahe machine kitni bhi fast/slow ho.
+    // ============================================================
+    const TARGET_MS = 5000;   // dono demos (blocking + chunked) itni der "asli kaam" karenge
+    const BATCH_SIZE = 100;
+
+    function doWorkUnit() {
+      let x = 0;
+      for (let i = 0; i < 3000; i++) x += Math.sqrt(i);
+      return x;
+    }
+
+    function runBlocking() {
+      resetMeter();
+      document.getElementById("work-status").textContent = "Status: blocking, please wait...";
+      // setTimeout se ek frame chhodte hain taaki "Status: blocking..." pehle paint ho jaaye
+      setTimeout(() => {
+        const start = performance.now();
+        let unitsDone = 0;
+        while (performance.now() - start < TARGET_MS) {   // ← clock check, machine-independent
+          doWorkUnit();                                     // ← SAB EK JHATKE MEIN, bina ruke
+          unitsDone++;
+        }
+        const elapsed = performance.now() - start;
+        document.getElementById("work-status").textContent =
+          `Status: blocking DONE in ${elapsed.toFixed(1)}ms, ${unitsDone} units (dekho, isi dauraan FPS meter kitna frozen tha)`;
+      }, 50);
+    }
+
+    // Generator-based chunked work (Fiber-style).
+    // Bilkul wahi "generator + driver" pattern jo humne Promise/async-await deep-dive
+    // mein khud haath se banaya tha — bas is baar "resume ka trigger" Promise resolve
+    // nahi, setTimeout(..., 0) hai (jo browser ko beech mein saans lene deta hai).
+    // Yahan bhi TARGET_MS-based hai — fixed unit-count ki jagah, clock check karta
+    // hai — isliye chunked version ka TOTAL TIME bhi blocking jaisa ~5s hoga,
+    // sirf beech-beech mein "saans" leta rahega (isliye wall-clock thoda zyada
+    // lag sakta hai, kyunki har batch ke baad ek chhota real-world pause hai).
+    function* chunkedHeavyWorkGenerator(targetMs, batchSize) {
+      const start = performance.now();
+      let unitsDone = 0;
+      while (performance.now() - start < targetMs) {   // ← clock check, poore generator ke liye
+        for (let i = 0; i < batchSize; i++) {
+          doWorkUnit();
+          unitsDone++;
+        }
+        yield { unitsDone, elapsed: performance.now() - start };   // ← ek batch poora, RUKO
+      }
+    }
+
+    function runChunked(generator) {
+      const { value, done } = generator.next();
+      if (!done) {
+        document.getElementById("work-status").textContent =
+          `Status: chunked running... ${value.unitsDone} units, ${value.elapsed.toFixed(0)}ms so far`;
+        setTimeout(() => runChunked(generator), 0);   // ← browser ko ek frame ka mauka do, PHIR resume
+      } else {
+        document.getElementById("work-status").textContent = "Status: chunked DONE";
+      }
+    }
+
+    function runChunkedButton() {
+      resetMeter();
+      const gen = chunkedHeavyWorkGenerator(TARGET_MS, BATCH_SIZE);
+      runChunked(gen);
+    }
+  </script>
+</body>
+</html>
