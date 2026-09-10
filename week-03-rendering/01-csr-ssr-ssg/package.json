@@ -1,0 +1,16 @@
+{
+  "name": "01-csr-ssr-ssg",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "build:csr": "tsc -p tsconfig.browser.json",
+    "ssr": "tsx ssr-server.ts",
+    "ssg": "tsx ssg-build.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.browser.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>CSR — Quote of the moment</title>
+  <style>
+    body { font-family: monospace; padding: 20px; }
+    #quote { font-size: 20px; margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <h2>CSR (Client-Side Rendering)</h2>
+  <p>"View Source" karke dekho — quote yahan MILEGI NAHI, sirf "Loading..." dikhega.</p>
+  <div id="quote">Loading...</div>
+
+  <!-- csr.ts se compile hui hai (npm run build:csr) — is file ko khud mat likho -->
+  <script type="module" src="csr.js"></script>
+</body>
+</html>
